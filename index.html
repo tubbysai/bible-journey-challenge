@@ -188,6 +188,74 @@
       align-items: center;
     }
 
+    .journey-options {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(170px, 1fr));
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .journey-card {
+      display: grid;
+      gap: 12px;
+      align-content: space-between;
+      min-height: 192px;
+      border: 1px solid rgba(241, 213, 138, 0.24);
+      border-radius: var(--radius);
+      padding: 14px;
+      color: var(--ivory);
+      text-align: left;
+      background: rgba(13, 26, 45, 0.62);
+      backdrop-filter: blur(8px);
+    }
+
+    .journey-card:hover {
+      border-color: rgba(241, 213, 138, 0.54);
+      background: rgba(13, 26, 45, 0.76);
+    }
+
+    .journey-card h3 {
+      margin-bottom: 4px;
+      color: #fff8e8;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.12rem;
+      line-height: 1.1;
+    }
+
+    .journey-card p {
+      margin: 0;
+      color: rgba(255, 248, 232, 0.72);
+      font-size: 0.86rem;
+      line-height: 1.42;
+    }
+
+    .journey-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .journey-meta span,
+    .choice-tag,
+    .type-pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      border: 1px solid rgba(241, 213, 138, 0.25);
+      border-radius: 999px;
+      padding: 4px 8px;
+      color: var(--gold-2);
+      font-size: 0.74rem;
+      font-weight: 900;
+      background: rgba(255, 248, 232, 0.075);
+    }
+
+    .journey-card .btn {
+      width: 100%;
+      min-height: 40px;
+      padding: 9px 12px;
+    }
+
     .btn {
       display: inline-flex;
       align-items: center;
@@ -557,8 +625,43 @@
       line-height: 1.35;
     }
 
+    .choice-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
     .choice .arrow {
       color: rgba(241, 213, 138, 0.72);
+    }
+
+    .posture-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .posture-button {
+      display: grid;
+      gap: 6px;
+      min-height: 86px;
+      border: 1px solid rgba(241, 213, 138, 0.22);
+      border-radius: var(--radius);
+      padding: 12px;
+      color: var(--ivory);
+      text-align: left;
+      background: rgba(255, 248, 232, 0.075);
+    }
+
+    .posture-button strong {
+      color: #fff8e8;
+    }
+
+    .posture-button small {
+      color: rgba(255, 248, 232, 0.62);
+      line-height: 1.35;
     }
 
     .result-band {
@@ -580,6 +683,183 @@
     .discovery {
       border-left: 3px solid var(--gold);
       padding: 2px 0 2px 13px;
+    }
+
+    .reward-summary,
+    .group-bonus,
+    .facilitator-box {
+      display: grid;
+      gap: 10px;
+      border: 1px solid rgba(241, 213, 138, 0.24);
+      border-radius: var(--radius);
+      padding: 14px;
+      background: rgba(13, 26, 45, 0.42);
+    }
+
+    .reward-summary h4,
+    .group-bonus h4,
+    .facilitator-box h4 {
+      margin: 0;
+      color: var(--gold-2);
+      font-size: 0.78rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .reward-line {
+      display: grid;
+      grid-template-columns: minmax(118px, auto) 1fr;
+      gap: 8px;
+      color: rgba(255, 248, 232, 0.82);
+      font-size: 0.9rem;
+      line-height: 1.35;
+    }
+
+    .reward-line strong {
+      color: #fff8e8;
+    }
+
+    .point-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .point-gain {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      border-radius: 999px;
+      padding: 4px 9px;
+      color: #1b2333;
+      background: linear-gradient(180deg, #f4d98d, #c89b3c);
+      font-size: 0.78rem;
+      font-weight: 900;
+    }
+
+    .reminder {
+      margin-top: 14px;
+      color: rgba(255, 248, 232, 0.64);
+      font-size: 0.86rem;
+      line-height: 1.45;
+    }
+
+    .group-bonus ul,
+    .ceremony-list,
+    .team-sheet-grid {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .group-bonus li {
+      padding: 6px 0;
+      border-top: 1px solid rgba(255, 248, 232, 0.1);
+      color: rgba(255, 248, 232, 0.78);
+      font-size: 0.86rem;
+      line-height: 1.4;
+    }
+
+    .group-bonus li:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    .facilitator-toggle {
+      justify-content: flex-start;
+      width: 100%;
+      margin-bottom: 12px;
+    }
+
+    .facilitator-box {
+      margin-top: 14px;
+      background: rgba(82, 102, 59, 0.18);
+    }
+
+    .facilitator-box p {
+      margin: 0;
+      color: rgba(255, 248, 232, 0.78);
+      font-size: 0.88rem;
+      line-height: 1.45;
+    }
+
+    .profile-title {
+      display: inline-flex;
+      width: fit-content;
+      max-width: 100%;
+      align-items: center;
+      margin: 8px 0 16px;
+      border: 1px solid rgba(241, 213, 138, 0.34);
+      border-radius: var(--radius);
+      padding: 10px 13px;
+      color: var(--gold-2);
+      background: rgba(200, 155, 60, 0.12);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.15rem, 4vw, 1.8rem);
+      font-weight: 700;
+      line-height: 1.15;
+    }
+
+    .ceremony-list {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .ceremony-list li {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      border-bottom: 1px solid rgba(255, 248, 232, 0.1);
+      padding-bottom: 8px;
+      color: rgba(255, 248, 232, 0.82);
+    }
+
+    .ceremony-list strong {
+      color: #fff8e8;
+    }
+
+    .team-score-sheet {
+      color: var(--ink);
+      background: var(--parchment);
+    }
+
+    .team-score-sheet .panel {
+      color: var(--ink);
+      background: rgba(255, 248, 232, 0.82);
+    }
+
+    .team-score-sheet h3,
+    .team-score-sheet p,
+    .team-score-sheet strong {
+      color: var(--ink);
+    }
+
+    .team-sheet-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .sheet-field {
+      min-height: 46px;
+      border: 1px solid rgba(37, 48, 68, 0.28);
+      border-radius: var(--radius);
+      padding: 8px 10px;
+      background: rgba(255, 248, 232, 0.56);
+    }
+
+    .sheet-field.large {
+      grid-column: 1 / -1;
+      min-height: 92px;
+    }
+
+    .sheet-line {
+      display: block;
+      margin-top: 12px;
+      border-bottom: 1px solid rgba(37, 48, 68, 0.5);
     }
 
     .discovery strong {
@@ -965,7 +1245,8 @@
 
       .game-layout,
       .how-grid,
-      .final-grid {
+      .final-grid,
+      .journey-options {
         grid-template-columns: 1fr;
       }
 
@@ -1018,6 +1299,11 @@
         min-height: 300px;
       }
 
+      .posture-grid,
+      .team-sheet-grid {
+        grid-template-columns: 1fr;
+      }
+
       .choice {
         grid-template-columns: auto 1fr;
       }
@@ -1043,6 +1329,16 @@
         background: white;
       }
 
+      .team-score-sheet {
+        color: #253044;
+        background: white;
+      }
+
+      .team-score-sheet .view-header,
+      .team-score-sheet .action-row {
+        display: none !important;
+      }
+
       .view-header,
       .side-column,
       .main-column > :not(.ending-card),
@@ -1060,6 +1356,22 @@
       .summary-card {
         box-shadow: none;
       }
+
+      .team-score-sheet .screen,
+      .team-score-sheet .panel,
+      .team-score-sheet .panel-pad {
+        display: block !important;
+        width: 100%;
+        border: 0;
+        box-shadow: none;
+        padding: 0;
+      }
+
+      .team-score-sheet .team-sheet-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
     }
   </style>
 </head>
@@ -1068,6 +1380,74 @@
 
   <script>
     const virtues = ["Faith", "Wisdom", "Courage", "Compassion", "Service"];
+
+    const journeyConfigs = {
+      quick: {
+        label: "Quick Journey",
+        stops: "4 stops",
+        time: "Good for 8-10 minutes",
+        description: "A focused route through Creation, Abraham, Jesus, and Paul.",
+        eraNames: ["Creation", "Abraham", "Jesus", "Paul"],
+        groupNight: false
+      },
+      full: {
+        label: "Full Journey",
+        stops: "8 stops",
+        time: "Good for 15-20 minutes",
+        description: "The complete Scripture route from Creation to Paul's mission.",
+        eraNames: ["Creation", "Noah", "Abraham", "Moses", "David", "Daniel", "Jesus", "Paul"],
+        groupNight: false
+      },
+      groupNight: {
+        label: "Group Night",
+        stops: "8 stops + discussion",
+        time: "Good for small groups/church events",
+        description: "The full route with stronger facilitator prompts and paper scoring.",
+        eraNames: ["Creation", "Noah", "Abraham", "Moses", "David", "Daniel", "Jesus", "Paul"],
+        groupNight: true
+      }
+    };
+
+    const profileTitles = {
+      Faith: "The Faithful Pilgrim",
+      Wisdom: "The Wise Counselor",
+      Courage: "The Courageous Witness",
+      Compassion: "The Mercy Bearer",
+      Service: "The Servant Leader",
+      "Courage+Faith": "The Steadfast Witness",
+      "Compassion+Wisdom": "The Shepherd Counselor",
+      "Compassion+Service": "The Hands of Mercy",
+      "Courage+Wisdom": "The Principled Leader",
+      "Faith+Service": "The Faithful Servant"
+    };
+
+    const profileBlessings = {
+      "The Faithful Pilgrim": "May your trust keep walking with God even when the road is not fully visible.",
+      "The Wise Counselor": "May your wisdom become a gift that strengthens others with truth and grace.",
+      "The Courageous Witness": "May your courage remain humble, faithful, and rooted in God's presence.",
+      "The Mercy Bearer": "May your compassion help others glimpse the patient mercy of Christ.",
+      "The Servant Leader": "May your service quietly reveal the love of Christ wherever you are sent.",
+      "The Steadfast Witness": "May your faithful courage help others stand with hope when the way is costly.",
+      "The Shepherd Counselor": "May your discernment and mercy guide people toward truth without losing tenderness.",
+      "The Hands of Mercy": "May your practical compassion become shelter for people who need grace in motion.",
+      "The Principled Leader": "May your courage and wisdom serve justice with humility and peace.",
+      "The Faithful Servant": "May your trust become visible through steady service and generous love."
+    };
+
+    const groupBonusPrompts = [
+      "Award your team +1 Wisdom if someone explained the reason clearly.",
+      "Award your team +1 Compassion if someone noticed who was most vulnerable.",
+      "Award your team +1 Faith if someone connected the decision to Scripture.",
+      "Award your team +1 Service if someone suggested a practical next step."
+    ];
+
+    const virtueTags = {
+      Faith: "Trust",
+      Wisdom: "Discernment",
+      Courage: "Courage",
+      Compassion: "Mercy",
+      Service: "Service"
+    };
 
     const virtueDescriptions = {
       Faith: "You leaned toward trust when the path asked for patience and surrender.",
@@ -1607,6 +1987,83 @@
       }
     };
 
+    const challengeTypePlan = {
+      Creation: {
+        index: 0,
+        type: "rank",
+        typeLabel: "Rank",
+        typePrompt: "What should happen first when creation is entrusted to a community?"
+      },
+      Noah: {
+        index: 1,
+        type: "tension",
+        typeLabel: "Tension",
+        typePrompt: "Choose between good priorities when resources are limited."
+      },
+      Abraham: {
+        index: 2,
+        type: "two-part",
+        typeLabel: "Two-Part Choice",
+        typePrompt: "Choose a posture first, then choose the action that should follow.",
+        postures: [
+          { text: "Pray", description: "Begin by entrusting the moment to God.", virtues: { Faith: 1 } },
+          { text: "Listen", description: "Attend carefully before moving.", virtues: { Wisdom: 1 } },
+          { text: "Welcome", description: "Make room for the person in front of you.", virtues: { Compassion: 1 } }
+        ]
+      },
+      Moses: {
+        index: 3,
+        type: "rank",
+        typeLabel: "Rank",
+        typePrompt: "What leadership response should come first?"
+      },
+      David: {
+        index: 1,
+        type: "tension",
+        typeLabel: "Tension",
+        typePrompt: "Choose between justice, mercy, restraint, and courage."
+      },
+      Daniel: {
+        index: 0,
+        type: "match",
+        typeLabel: "Match",
+        typePrompt: "Which action best matches faithful integrity in exile?"
+      },
+      Jesus: {
+        index: 0,
+        type: "match",
+        typeLabel: "Match",
+        typePrompt: "Which action best reflects neighbor-love in the way of Jesus?"
+      },
+      Paul: {
+        index: 2,
+        type: "two-part",
+        typeLabel: "Two-Part Choice",
+        typePrompt: "Choose the mission posture first, then choose the action.",
+        postures: [
+          { text: "Pray", description: "Seek guidance before moving.", virtues: { Faith: 1 } },
+          { text: "Encourage", description: "Strengthen the people already present.", virtues: { Compassion: 1 } },
+          { text: "Equip", description: "Build up others for shared mission.", virtues: { Service: 1 } }
+        ]
+      }
+    };
+
+    eras.forEach(era => {
+      era.challenges.forEach((challenge, index) => {
+        challenge.type = "decision";
+        challenge.typeLabel = "Decision";
+        challenge.typePrompt = "Choose the response that seems most faithful in this moment.";
+        if (!challenge.options) return;
+        challenge.options.forEach(option => {
+          option.tags = deriveChoiceTags(option);
+        });
+        const plan = challengeTypePlan[era.name];
+        if (plan && plan.index === index) {
+          Object.assign(challenge, plan);
+        }
+      });
+    });
+
     const mapPoints = [
       { x: 105, y: 350 },
       { x: 210, y: 245 },
@@ -1639,6 +2096,7 @@
     let state = {
       screen: "home",
       mode: "solo",
+      journeyType: "full",
       eraIndex: 0,
       phase: "challenge",
       scores: baseScores(),
@@ -1648,6 +2106,8 @@
       selectedChallenges: [],
       lastOutcome: null,
       pendingEvent: null,
+      selectedPosture: null,
+      facilitator: false,
       dailyFocus: null,
       dailyResult: null
     };
@@ -1665,6 +2125,92 @@
       return items[Math.floor(Math.random() * items.length)];
     }
 
+    function journeyEraList() {
+      const config = journeyConfigs[state.journeyType] || journeyConfigs.full;
+      return config.eraNames.map(name => eras.find(era => era.name === name)).filter(Boolean);
+    }
+
+    function currentEra() {
+      return journeyEraList()[state.eraIndex] || eras[0];
+    }
+
+    function currentChallenge() {
+      return state.selectedChallenges[state.eraIndex] || currentEra().challenges[0];
+    }
+
+    function currentJourneyConfig() {
+      return journeyConfigs[state.journeyType] || journeyConfigs.full;
+    }
+
+    function isGroupJourney() {
+      return state.mode === "group" || currentJourneyConfig().groupNight;
+    }
+
+    function journeyLabel() {
+      const config = currentJourneyConfig();
+      return `${config.label} | ${state.mode === "group" || config.groupNight ? "Group Journey" : "Solo Journey"}`;
+    }
+
+    function nextDestinationLabel() {
+      const active = journeyEraList();
+      if (state.pendingEvent) return "Road Event";
+      if (shouldReflect()) return "Optional Reflection";
+      return active[state.eraIndex + 1]?.name || "Journey Complete";
+    }
+
+    function formatVirtuePoints(impacts) {
+      return Object.entries(impacts || {})
+        .filter(([, value]) => value > 0)
+        .map(([virtue, value]) => `+${value} ${virtue}`);
+    }
+
+    function mergeVirtues(...impactSets) {
+      return impactSets.reduce((merged, impacts) => {
+        Object.entries(impacts || {}).forEach(([virtue, value]) => {
+          merged[virtue] = (merged[virtue] || 0) + value;
+        });
+        return merged;
+      }, {});
+    }
+
+    function deriveChoiceTags(choice) {
+      const tags = new Set(Object.keys(choice.virtues || {}).map(virtue => virtueTags[virtue] || virtue));
+      const text = `${choice.text || ""} ${choice.note || ""}`.toLowerCase();
+      if (text.includes("wait") || text.includes("patient")) tags.add("Patience");
+      if (text.includes("welcome") || text.includes("hospitality") || text.includes("stranger")) tags.add("Hospitality");
+      if (text.includes("integrity") || text.includes("honest")) tags.add("Integrity");
+      if (text.includes("encourage")) tags.add("Encouragement");
+      if (text.includes("leader") || text.includes("leadership")) tags.add("Leadership");
+      if (text.includes("steward") || text.includes("land") || text.includes("creation")) tags.add("Stewardship");
+      if (text.includes("pray") || text.includes("prayer")) tags.add("Prayer");
+      if (text.includes("humility") || text.includes("humble")) tags.add("Humility");
+      return Array.from(tags).slice(0, 3);
+    }
+
+    function topVirtues(limit = 3) {
+      return [...virtues]
+        .sort((a, b) => (state.scores[b] || 0) - (state.scores[a] || 0) || virtues.indexOf(a) - virtues.indexOf(b))
+        .slice(0, limit);
+    }
+
+    function journeyProfileTitle() {
+      const topTwo = topVirtues(2);
+      const comboKey = [...topTwo].sort().join("+");
+      return profileTitles[comboKey] || profileTitles[topTwo[0]] || "The Faithful Pilgrim";
+    }
+
+    function journeyBlessing() {
+      return profileBlessings[journeyProfileTitle()] || profileBlessings["The Faithful Pilgrim"];
+    }
+
+    function sealProgressText(impacts) {
+      const impacted = Object.keys(impacts || {});
+      if (!impacted.length) return "Virtues are still forming";
+      return impacted
+        .map(virtue => `${virtue} ${Math.min(state.scores[virtue] || 0, 6)}/6`)
+        .join(" | ");
+    }
+
     function todaysFocus() {
       const start = new Date(new Date().getFullYear(), 0, 0);
       const today = new Date();
@@ -1672,19 +2218,24 @@
       return virtues[day % virtues.length];
     }
 
-    function startJourney(mode) {
+    function startJourney(mode, journeyType = "full") {
+      const config = journeyConfigs[journeyType] || journeyConfigs.full;
+      const selectedEras = config.eraNames.map(name => eras.find(era => era.name === name)).filter(Boolean);
       state = {
         screen: "game",
-        mode,
+        mode: config.groupNight ? "group" : mode,
+        journeyType,
         eraIndex: 0,
         phase: "challenge",
         scores: baseScores(),
         stamps: [],
         discoveries: [],
         seals: [],
-        selectedChallenges: eras.map(era => pick(era.challenges)),
+        selectedChallenges: selectedEras.map(era => pick(era.challenges)),
         lastOutcome: null,
         pendingEvent: null,
+        selectedPosture: null,
+        facilitator: config.groupNight,
         dailyFocus: null,
         dailyResult: null
       };
@@ -1696,6 +2247,7 @@
         ...state,
         screen: "daily",
         mode: "daily",
+        journeyType: "daily",
         scores: baseScores(),
         dailyFocus: todaysFocus(),
         dailyResult: null
@@ -1720,10 +2272,12 @@
     }
 
     function applyVirtues(impacts) {
+      const before = [...state.seals];
       Object.entries(impacts || {}).forEach(([virtue, value]) => {
         state.scores[virtue] = Math.max(0, (state.scores[virtue] || 0) + value);
       });
       unlockSeals();
+      return state.seals.filter(virtue => !before.includes(virtue));
     }
 
     function unlockSeals() {
@@ -1734,31 +2288,42 @@
       });
     }
 
-    function choiceVirtueLine(choice) {
-      return Object.entries(choice.virtues)
-        .map(([virtue, value]) => `${virtue} +${value}`)
-        .join(" | ");
+    function choiceTagsMarkup(choice) {
+      return `<span class="choice-tags">${(choice.tags || deriveChoiceTags(choice)).map(tag => `<span class="choice-tag">${escapeHtml(tag)}</span>`).join("")}</span>`;
     }
 
     function chooseOption(index) {
-      const era = eras[state.eraIndex];
-      const challenge = state.selectedChallenges[state.eraIndex];
+      const era = currentEra();
+      const challenge = currentChallenge();
       const choice = challenge.options[index];
       if (!choice) return;
-      applyVirtues(choice.virtues);
+      const posture = challenge.type === "two-part" ? state.selectedPosture : null;
+      const impacts = mergeVirtues(posture?.virtues, choice.virtues);
+      const newSeals = applyVirtues(impacts);
       if (!state.stamps.includes(era.name)) state.stamps.push(era.name);
       const discovery = addDiscovery(pick(era.discoveryPool));
-      state.pendingEvent = Math.random() < 0.34 && state.eraIndex < eras.length - 1 ? pick(randomEvents) : null;
+      state.pendingEvent = Math.random() < 0.34 && state.eraIndex < journeyEraList().length - 1 ? pick(randomEvents) : null;
       state.lastOutcome = {
         title: challenge.title,
         choice: choice.text,
+        posture: posture?.text || null,
         feedback: choice.feedback,
         note: choice.note,
         discovery,
         stamp: era.name,
-        impacts: choice.virtues
+        impacts,
+        newSeals,
+        nextDestination: nextDestinationLabel()
       };
+      state.selectedPosture = null;
       state.phase = "result";
+      render();
+    }
+
+    function choosePosture(index) {
+      const challenge = currentChallenge();
+      if (challenge.type !== "two-part") return;
+      state.selectedPosture = challenge.postures[index];
       render();
     }
 
@@ -1779,7 +2344,7 @@
       if (!event) return;
       const choice = event.options[index];
       if (!choice) return;
-      applyVirtues(choice.virtues);
+      const newSeals = applyVirtues(choice.virtues);
       const discovery = addDiscovery(event.discovery);
       state.lastOutcome = {
         title: event.title,
@@ -1788,15 +2353,17 @@
         note: "A road event shaped the journey.",
         discovery,
         stamp: null,
-        impacts: choice.virtues
+        impacts: choice.virtues,
+        newSeals,
+        nextDestination: shouldReflect() ? "Optional Reflection" : (journeyEraList()[state.eraIndex + 1]?.name || "Journey Complete")
       };
       state.pendingEvent = null;
-      state.phase = shouldReflect() ? "reflection" : "result";
+      state.phase = "result";
       render();
     }
 
     function shouldReflect() {
-      return [2, 4, 6, 7].includes(state.eraIndex);
+      return ["Abraham", "David", "Jesus", "Paul"].includes(currentEra().name);
     }
 
     function skipReflection() {
@@ -1804,7 +2371,7 @@
     }
 
     function advanceEra() {
-      if (state.eraIndex >= eras.length - 1) {
+      if (state.eraIndex >= journeyEraList().length - 1) {
         finishJourney();
         return;
       }
@@ -1812,6 +2379,7 @@
       state.phase = "challenge";
       state.lastOutcome = null;
       state.pendingEvent = null;
+      state.selectedPosture = null;
       render();
     }
 
@@ -1827,12 +2395,14 @@
       const challenge = dailyChallenges[state.dailyFocus];
       const choice = challenge.options[index];
       if (!choice) return;
-      applyVirtues(choice.virtues);
+      const newSeals = applyVirtues(choice.virtues);
       state.dailyResult = {
         focus: state.dailyFocus,
         choice: choice.text,
         feedback: choice.feedback,
-        discovery: challenge.discovery
+        discovery: challenge.discovery,
+        impacts: choice.virtues,
+        newSeals
       };
       render();
     }
@@ -1848,8 +2418,10 @@
         how: renderHowTo,
         game: renderGame,
         daily: renderDaily,
-        ending: renderEnding
+        ending: renderEnding,
+        scoreSheet: renderScoreSheet
       };
+      document.body.classList.toggle("team-score-sheet", state.screen === "scoreSheet");
       app.innerHTML = screens[state.screen]();
       attachEvents();
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -1860,18 +2432,30 @@
         button.addEventListener("click", () => {
           const action = button.getAttribute("data-action");
           const value = button.getAttribute("data-value");
+          const mode = button.getAttribute("data-mode") || "solo";
+          const journey = button.getAttribute("data-journey") || "full";
           if (action === "solo") startJourney("solo");
           if (action === "group") startJourney("group");
+          if (action === "start") startJourney(mode, journey);
           if (action === "daily") startDaily();
           if (action === "how") showHowToPlay();
           if (action === "home") goHome();
           if (action === "choice") chooseOption(Number(value));
+          if (action === "posture") choosePosture(Number(value));
           if (action === "continue") continueAfterResult();
           if (action === "eventChoice") chooseEventOption(Number(value));
           if (action === "skipReflection") skipReflection();
           if (action === "continueReflection") advanceEra();
           if (action === "dailyChoice") chooseDailyOption(Number(value));
-          if (action === "restart") startJourney(state.mode === "group" ? "group" : "solo");
+          if (action === "restart") startJourney(state.mode === "group" ? "group" : "solo", state.journeyType === "daily" ? "full" : state.journeyType);
+          if (action === "toggleFacilitator") {
+            state.facilitator = !state.facilitator;
+            render();
+          }
+          if (action === "scoreSheet") {
+            state.screen = "scoreSheet";
+            render();
+          }
           if (action === "print") window.print();
         });
       });
@@ -1885,16 +2469,50 @@
             <div class="hero-content">
               <div class="kicker">Scripture Journey</div>
               <h1 id="home-title">Bible Journey Challenge</h1>
-              <p class="subtitle">Travel through the story of Scripture. Face challenges. Make decisions. Unlock virtues. Discover your journey.</p>
-              <div class="hero-actions" aria-label="Game modes">
-                <button class="btn btn-primary" data-action="solo">${icons.compass} Play Solo</button>
-                <button class="btn" data-action="group">${icons.group} Play With A Group</button>
-                <button class="btn btn-copper" data-action="daily">${icons.spark} Daily Challenge</button>
+              <p class="subtitle">Travel through the story of Scripture. Face challenges. Make decisions. Unlock virtues. Discover your journey. No two journeys are exactly alike.</p>
+              <div class="journey-options" aria-label="Journey length options">
+                ${renderJourneyCard("quick", "solo")}
+                ${renderJourneyCard("full", "solo")}
+                ${renderJourneyCard("groupNight", "group")}
+                <div class="journey-card">
+                  <div>
+                    <h3>Daily Challenge</h3>
+                    <p>1 focused challenge for today's virtue practice.</p>
+                  </div>
+                  <div class="journey-meta">
+                    <span>1 challenge</span>
+                    <span>Daily focus</span>
+                  </div>
+                  <button class="btn btn-copper" data-action="daily">${icons.spark} Start Daily Challenge</button>
+                </div>
+              </div>
+              <div class="hero-actions" aria-label="Helpful links" style="margin-top:14px">
+                <button class="btn" data-action="start" data-mode="group" data-journey="full">${icons.group} Group Journey</button>
                 <button class="btn btn-quiet" data-action="how">${icons.book} How To Play</button>
               </div>
             </div>
           </section>
         </main>
+      `;
+    }
+
+    function renderJourneyCard(journeyType, mode) {
+      const config = journeyConfigs[journeyType];
+      const primary = journeyType === "full";
+      return `
+        <div class="journey-card">
+          <div>
+            <h3>${escapeHtml(config.label)}</h3>
+            <p>${escapeHtml(config.description)}</p>
+          </div>
+          <div class="journey-meta">
+            <span>${escapeHtml(config.stops)}</span>
+            <span>${escapeHtml(config.time)}</span>
+          </div>
+          <button class="btn ${primary ? "btn-primary" : ""}" data-action="start" data-mode="${mode}" data-journey="${journeyType}">
+            ${journeyType === "groupNight" ? icons.group : icons.compass} Start ${escapeHtml(config.label)}
+          </button>
+        </div>
       `;
     }
 
@@ -1919,9 +2537,11 @@
                   </li>
                 `).join("")}
               </ol>
+              <p class="reminder">Different virtues grow through different choices. This journey is not about a perfect score.</p>
               <div class="action-row">
-                <button class="btn btn-primary" data-action="solo">${icons.compass} Play Solo</button>
-                <button class="btn" data-action="group">${icons.group} Play With A Group</button>
+                <button class="btn btn-primary" data-action="start" data-mode="solo" data-journey="quick">${icons.compass} Quick Journey</button>
+                <button class="btn" data-action="start" data-mode="solo" data-journey="full">${icons.route} Full Journey</button>
+                <button class="btn" data-action="start" data-mode="group" data-journey="groupNight">${icons.group} Group Night</button>
               </div>
             </div>
             <aside class="panel panel-pad" aria-labelledby="virtues-title">
@@ -1943,10 +2563,10 @@
     }
 
     function renderGame() {
-      const era = eras[state.eraIndex];
+      const era = currentEra();
       return `
         <main class="screen">
-          ${renderHeader("Bible Journey Challenge", state.mode === "group" ? "Group Journey" : "Solo Journey")}
+          ${renderHeader("Bible Journey Challenge", journeyLabel())}
           <section class="game-layout">
             <div class="main-column">
               ${renderMapPanel()}
@@ -1975,6 +2595,8 @@
             </div>
           </div>
           <div class="hero-actions">
+            ${isGroupJourney() && ["game", "ending"].includes(state.screen) ? `<button class="btn" data-action="scoreSheet">${icons.book} Print Team Score Sheet</button>` : ""}
+            ${["game"].includes(state.screen) ? `<button class="btn btn-quiet" data-action="toggleFacilitator">${icons.spark} ${state.facilitator ? "Hide" : "Show"} Facilitator View</button>` : ""}
             <button class="btn btn-quiet" data-action="home">${icons.route} Opening</button>
             <button class="btn btn-quiet" data-action="how">${icons.book} How To Play</button>
           </div>
@@ -1983,8 +2605,9 @@
     }
 
     function renderMapPanel() {
-      const era = eras[state.eraIndex];
-      const progress = Math.round((state.stamps.length / eras.length) * 100);
+      const era = currentEra();
+      const active = journeyEraList();
+      const progress = Math.round((state.stamps.length / active.length) * 100);
       return `
         <section class="panel map-panel" aria-labelledby="map-title">
           <div class="map-toolbar">
@@ -2006,30 +2629,39 @@
       if (state.phase === "event") return renderEventPanel();
       if (state.phase === "reflection") return renderReflectionPanel();
 
-      const era = eras[state.eraIndex];
-      const challenge = state.selectedChallenges[state.eraIndex];
-      const chooserText = state.mode === "group"
-        ? "Discuss together. What should your group choose?"
+      const era = currentEra();
+      const challenge = currentChallenge();
+      const chooserText = isGroupJourney()
+        ? "Discuss together before choosing. There is no single perfect score. Choose the response your group believes is most faithful."
         : "What would you choose?";
+      const isTwoPart = challenge.type === "two-part";
+      const postureSelected = Boolean(state.selectedPosture);
 
       return `
         <section class="panel panel-pad challenge-panel" aria-labelledby="challenge-title">
           <div class="eyebrow">${escapeHtml(era.name)} Journey Stop</div>
+          <span class="type-pill">${escapeHtml(challenge.typeLabel || "Decision")}</span>
           <h3 id="challenge-title">${escapeHtml(challenge.title)}</h3>
           <p class="prompt">${escapeHtml(challenge.prompt)}</p>
-          ${state.mode === "group" ? `
+          <p class="prompt"><strong>${escapeHtml(challenge.typePrompt || "Choose the response that seems most faithful.")}</strong></p>
+          ${isGroupJourney() ? `
             <div class="group-note">
               ${icons.group}
               <div>
                 <strong>Discuss together before choosing.</strong><br>
+                There is no single perfect score. Choose the response your group believes is most faithful.<br>
                 ${escapeHtml(era.discussion[0])}
               </div>
             </div>
           ` : ""}
-          <p class="prompt"><strong>${escapeHtml(chooserText)}</strong></p>
-          <div class="option-grid">
-            ${challenge.options.map((choice, index) => renderChoice(choice, index, "choice")).join("")}
-          </div>
+          ${state.facilitator ? renderFacilitatorBox(era) : ""}
+          <p class="prompt"><strong>${escapeHtml(isTwoPart && !postureSelected ? "Choose a posture first." : chooserText)}</strong></p>
+          ${isTwoPart && !postureSelected ? renderPostureChoices(challenge) : `
+            ${isTwoPart && postureSelected ? `<div class="group-note">${icons.spark}<div><strong>Posture selected:</strong> ${escapeHtml(state.selectedPosture.text)}<br>${escapeHtml(state.selectedPosture.description)}</div></div>` : ""}
+            <div class="option-grid">
+              ${challenge.options.map((choice, index) => renderChoice(choice, index, "choice")).join("")}
+            </div>
+          `}
         </section>
       `;
     }
@@ -2040,10 +2672,37 @@
           <span class="choice-icon">${icons.hands}</span>
           <span>
             <strong>${escapeHtml(choice.text)}</strong>
-            <small>${escapeHtml(choiceVirtueLine(choice))}</small>
+            <small>${escapeHtml(choice.note || "A meaningful response with its own strengths.")}</small>
+            ${choiceTagsMarkup(choice)}
           </span>
           <span class="arrow">${icons.arrow}</span>
         </button>
+      `;
+    }
+
+    function renderPostureChoices(challenge) {
+      return `
+        <div class="posture-grid">
+          ${(challenge.postures || []).map((posture, index) => `
+            <button class="posture-button" data-action="posture" data-value="${index}">
+              <strong>${escapeHtml(posture.text)}</strong>
+              <small>${escapeHtml(posture.description)}</small>
+            </button>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    function renderFacilitatorBox(era) {
+      return `
+        <details class="facilitator-box" open>
+          <summary><h4>Facilitator View</h4></summary>
+          <p><strong>Suggested time:</strong> ${currentJourneyConfig().groupNight ? "3-4 minutes" : "2 minutes"}</p>
+          <p><strong>Ask:</strong> Why did your group choose this response?</p>
+          <p><strong>Follow-up:</strong> Which virtue was hardest to practice here?</p>
+          <p><strong>Prayer prompt:</strong> ${escapeHtml(era.prayer)}</p>
+          <p><strong>Listen for:</strong> humility, Scripture connection, care for vulnerable people, and practical application.</p>
+        </details>
       `;
     }
 
@@ -2053,27 +2712,50 @@
           ? "Continue To Road Event"
           : shouldReflect()
             ? "Continue To Reflection"
-            : state.eraIndex >= eras.length - 1
+            : state.eraIndex >= journeyEraList().length - 1
               ? "Complete Journey"
               : "Continue Journey";
+      const pointGains = formatVirtuePoints(result.impacts);
       return `
         <section class="panel panel-pad challenge-panel" aria-labelledby="result-title">
           <div class="eyebrow">Journey Discovery</div>
           <h3 id="result-title">${escapeHtml(result.title)}</h3>
           <div class="result-band">
+            ${result.posture ? `<p><strong>Posture:</strong> ${escapeHtml(result.posture)}</p>` : ""}
             <p><strong>Your choice:</strong> ${escapeHtml(result.choice)}</p>
             <p>${escapeHtml(result.feedback)}</p>
             <p>${escapeHtml(result.note)}</p>
-            ${result.stamp ? `<p><strong>Passport stamp added:</strong> ${escapeHtml(result.stamp)}</p>` : ""}
+            <div class="reward-summary">
+              <h4>Reward Summary</h4>
+              <div class="reward-line"><strong>Virtue points gained</strong><span class="point-list">${pointGains.map(item => `<span class="point-gain">${escapeHtml(item)}</span>`).join("")}</span></div>
+              ${result.stamp ? `<div class="reward-line"><strong>Passport stamped</strong><span>${escapeHtml(result.stamp)}</span></div>` : ""}
+              <div class="reward-line"><strong>Discovery unlocked</strong><span>Yes</span></div>
+              <div class="reward-line"><strong>Seal progress</strong><span>${escapeHtml(sealProgressText(result.impacts))}${result.newSeals?.length ? ` | New: ${escapeHtml(result.newSeals.map(v => `Seal of ${v}`).join(", "))}` : ""}</span></div>
+              <div class="reward-line"><strong>Next destination</strong><span>${escapeHtml(result.nextDestination || nextDestinationLabel())}</span></div>
+            </div>
             <div class="discovery">
               <strong>Did you know?</strong>
               <p>${escapeHtml(result.discovery)}</p>
             </div>
           </div>
+          ${isGroupJourney() ? renderGroupBonusBox() : ""}
+          <p class="reminder">Different virtues grow through different choices. This journey is not about a perfect score.</p>
           <div class="action-row">
             <button class="btn btn-primary" data-action="continue">${icons.arrow} ${continueLabel}</button>
           </div>
         </section>
+      `;
+    }
+
+    function renderGroupBonusBox() {
+      return `
+        <div class="group-bonus" aria-label="Optional paper scoring prompts">
+          <h4>Optional Team Paper Scoring</h4>
+          <ul>
+            ${groupBonusPrompts.map(prompt => `<li>${escapeHtml(prompt)}</li>`).join("")}
+          </ul>
+          <p class="reminder">These bonus points are for paper scoring only and are not added to the app score automatically.</p>
+        </div>
       `;
     }
 
@@ -2084,12 +2766,12 @@
           <div class="eyebrow">Road Event</div>
           <h3 id="event-title">${escapeHtml(event.title)}</h3>
           <p class="prompt">${escapeHtml(event.prompt)}</p>
-          ${state.mode === "group" ? `
+          ${isGroupJourney() ? `
             <div class="group-note">
               ${icons.group}
               <div>
                 <strong>Discuss together before choosing.</strong><br>
-                What virtue does this moment ask your group to practice?
+                There is no single perfect score. What virtue does this moment ask your group to practice?
               </div>
             </div>
           ` : ""}
@@ -2123,7 +2805,7 @@
         <section class="panel panel-pad" aria-labelledby="virtue-score-title">
           <div class="section-title">
             <h3 id="virtue-score-title">Virtue Scores</h3>
-            <span class="count-pill">${state.stamps.length}/${eras.length}</span>
+            <span class="count-pill">${state.stamps.length}/${journeyEraList().length}</span>
           </div>
           <div class="stats-grid">
             ${virtues.map(virtue => {
@@ -2150,7 +2832,7 @@
             <span class="count-pill">${state.stamps.length}</span>
           </div>
           <div class="stamp-grid">
-            ${eras.map(era => {
+            ${journeyEraList().map(era => {
               const done = state.stamps.includes(era.name);
               return `
                 <div class="stamp ${done ? "done" : ""}">
@@ -2198,9 +2880,10 @@
         <section class="panel panel-pad leader-guide" aria-labelledby="leader-title">
           <div class="section-title">
             <h3 id="leader-title">Leader Guide</h3>
-            <span class="count-pill">${eras.length}</span>
+            <span class="count-pill">${journeyEraList().length}</span>
           </div>
-          ${eras.map(era => `
+          <button class="btn btn-quiet facilitator-toggle" data-action="toggleFacilitator">${icons.spark} ${state.facilitator ? "Hide" : "Show"} Facilitator View</button>
+          ${journeyEraList().map(era => `
             <details ${era.name === currentName ? "open" : ""}>
               <summary>${escapeHtml(era.name)}</summary>
               <div class="guide-content">
@@ -2208,6 +2891,12 @@
                 <div><strong>Main lesson:</strong> ${escapeHtml(era.lesson)}</div>
                 <div><strong>Discussion:</strong> ${escapeHtml(era.discussion.join(" "))}</div>
                 <div><strong>Prayer:</strong> ${escapeHtml(era.prayer)}</div>
+                ${state.facilitator ? `
+                  <div><strong>Suggested time:</strong> ${currentJourneyConfig().groupNight ? "3-4 minutes" : "2 minutes"}</div>
+                  <div><strong>Key question:</strong> Why did your group choose this response?</div>
+                  <div><strong>Follow-up:</strong> Which virtue was hardest to practice here?</div>
+                  <div><strong>Listen for:</strong> humility, Scripture connection, practical application, and care for vulnerable people.</div>
+                ` : ""}
               </div>
             </details>
           `).join("")}
@@ -2235,13 +2924,18 @@
                 <div class="result-band">
                   <p><strong>Your choice:</strong> ${escapeHtml(result.choice)}</p>
                   <p>${escapeHtml(result.feedback)}</p>
+                  <div class="reward-summary">
+                    <h4>Reward Summary</h4>
+                    <div class="reward-line"><strong>Virtue points gained</strong><span class="point-list">${formatVirtuePoints(result.impacts).map(item => `<span class="point-gain">${escapeHtml(item)}</span>`).join("")}</span></div>
+                    <div class="reward-line"><strong>Seal progress</strong><span>${escapeHtml(sealProgressText(result.impacts))}</span></div>
+                  </div>
                   <div class="discovery">
                     <strong>Did you know?</strong>
                     <p>${escapeHtml(result.discovery)}</p>
                   </div>
                 </div>
                 <div class="action-row">
-                  <button class="btn btn-primary" data-action="solo">${icons.compass} Begin Full Journey</button>
+                  <button class="btn btn-primary" data-action="start" data-mode="solo" data-journey="full">${icons.compass} Begin Full Journey</button>
                   <button class="btn" data-action="home">Opening</button>
                 </div>
               ` : `
@@ -2268,15 +2962,26 @@
       const strongest = strongestVirtues();
       const primary = strongest[0];
       const completed = state.stamps.length;
+      const active = journeyEraList();
+      const profileTitle = journeyProfileTitle();
+      const topThree = topVirtues(3);
       return `
         <main class="screen">
-          ${renderHeader("Journey Complete", "Your Faith Profile is ready")}
+          ${renderHeader("Journey Complete", "Passport sealed. Your Faith Profile is ready.")}
           <section class="final-grid">
             <div class="main-column ending-card">
               <section class="panel panel-pad challenge-panel">
-                <div class="eyebrow">Faith Profile</div>
-                <h3>Your Strongest Virtue: ${escapeHtml(strongest.join(" and "))}</h3>
+                <div class="eyebrow">Passport Sealed</div>
+                <h3>Your Journey Profile</h3>
+                <div class="profile-title">${escapeHtml(profileTitle)}</div>
+                <p class="prompt"><strong>Strongest virtue:</strong> ${escapeHtml(strongest.join(" and "))}</p>
                 <p class="prompt">${escapeHtml(virtueDescriptions[primary])}</p>
+                <ul class="ceremony-list">
+                  <li><span>Top virtues</span><strong>${escapeHtml(topThree.join(", "))}</strong></li>
+                  <li><span>Completed route</span><strong>${escapeHtml(active.map(era => era.name).join(" -> "))}</strong></li>
+                  <li><span>Discoveries found</span><strong>${state.discoveries.length}</strong></li>
+                  <li><span>Wax seals earned</span><strong>${state.seals.length}</strong></li>
+                </ul>
                 <div class="score-table">
                   ${virtues.map(virtue => `
                     <div class="score-line">
@@ -2286,12 +2991,16 @@
                   `).join("")}
                 </div>
                 <div class="result-band">
-                  <p><strong>Passport completion:</strong> ${completed}/${eras.length} eras stamped.</p>
+                  <p><strong>Passport completion:</strong> ${completed}/${active.length} eras stamped.</p>
                   <p><strong>Seals earned:</strong> ${state.seals.length ? state.seals.map(v => `Seal of ${v}`).join(", ") : "Your strongest seal is still forming."}</p>
-                  <p><strong>Discoveries found:</strong> ${state.discoveries.length}</p>
+                  <p><strong>Final blessing:</strong> ${escapeHtml(journeyBlessing())}</p>
                 </div>
+                <p class="reminder">Different virtues grow through different choices. This journey is not about a perfect score. No two journeys are exactly alike.</p>
                 <div class="action-row">
-                  <button class="btn btn-primary" data-action="restart">${icons.route} Replay Journey</button>
+                  <button class="btn btn-primary" data-action="restart">${icons.route} Play Again With A New Path</button>
+                  <button class="btn" data-action="start" data-mode="solo" data-journey="quick">${icons.compass} Try Quick Journey</button>
+                  <button class="btn" data-action="start" data-mode="group" data-journey="groupNight">${icons.group} Try Group Night</button>
+                  <button class="btn" data-action="daily">${icons.spark} Daily Challenge</button>
                   <button class="btn" data-action="print">${icons.spark} Print Summary</button>
                   <button class="btn" data-action="home">Opening</button>
                 </div>
@@ -2304,12 +3013,68 @@
               <div class="summary-body">
                 <div class="eyebrow" style="color:#7a4b2f">Journey Completed</div>
                 <h3>Bible Journey Challenge</h3>
+                <p><strong>Journey profile:</strong> ${escapeHtml(profileTitle)}</p>
                 <p><strong>Strongest virtue:</strong> ${escapeHtml(strongest.join(" and "))}</p>
-                <p><strong>Passport:</strong> ${completed}/${eras.length} eras complete</p>
+                <p><strong>Passport:</strong> ${completed}/${active.length} eras complete</p>
                 <p><strong>Wax seals:</strong> ${state.seals.length ? state.seals.map(v => `Seal of ${v}`).join(", ") : "Still forming"}</p>
+                <p><strong>Final blessing:</strong> ${escapeHtml(journeyBlessing())}</p>
                 <div class="verse">${escapeHtml(virtueVerses[primary])}</div>
               </div>
             </aside>
+          </section>
+        </main>
+      `;
+    }
+
+    function renderScoreSheet() {
+      const config = currentJourneyConfig();
+      const fields = [
+        "Team Name:",
+        "Date:",
+        "Journey Type:",
+        "Round:",
+        "Faith:",
+        "Wisdom:",
+        "Courage:",
+        "Compassion:",
+        "Service:",
+        "Discoveries:",
+        "Discussion Bonus:",
+        "Final Journey Profile:"
+      ];
+      return `
+        <main class="screen team-score-sheet">
+          <header class="view-header">
+            <div class="brand-lockup">
+              <div class="brand-mark">${icons.book}</div>
+              <div class="brand-title">
+                <h2>Team Score Sheet</h2>
+                <p>${escapeHtml(config.label)} | Paper scoring companion</p>
+              </div>
+            </div>
+            <div class="hero-actions">
+              <button class="btn btn-primary" data-action="print">${icons.spark} Print Team Score Sheet</button>
+              <button class="btn" data-action="home">Opening</button>
+            </div>
+          </header>
+          <section class="panel panel-pad">
+            <div class="eyebrow" style="color:#7a4b2f">Bible Journey Challenge</div>
+            <h3>Printable Team Score Sheet</h3>
+            <p>Use this for Group Journey or Group Night paper scoring. App scores remain separate from discussion bonus points.</p>
+            <div class="team-sheet-grid">
+              ${fields.map(label => `
+                <div class="sheet-field">
+                  <strong>${escapeHtml(label)}</strong>
+                  <span class="sheet-line"></span>
+                </div>
+              `).join("")}
+              <div class="sheet-field large">
+                <strong>Notes:</strong>
+                <span class="sheet-line"></span>
+                <span class="sheet-line"></span>
+                <span class="sheet-line"></span>
+              </div>
+            </div>
           </section>
         </main>
       `;
@@ -2374,14 +3139,21 @@
       `;
     }
 
-    function routePath() {
-      return "M105 350 C150 292 168 268 210 245 C250 225 280 306 315 330 C365 366 388 246 430 215 C476 184 498 278 535 300 C588 339 598 205 640 185 C684 166 694 250 735 285 C778 322 792 195 820 165";
+    function routePath(points = mapPoints) {
+      if (!points.length) return "";
+      if (points.length === mapPoints.length) {
+        return "M105 350 C150 292 168 268 210 245 C250 225 280 306 315 330 C365 366 388 246 430 215 C476 184 498 278 535 300 C588 339 598 205 640 185 C684 166 694 250 735 285 C778 322 792 195 820 165";
+      }
+      return points.map((point, index) => `${index === 0 ? "M" : "L"}${point.x} ${point.y}`).join(" ");
     }
 
     function journeyMapSvg() {
-      const currentPoint = mapPoints[state.eraIndex];
-      const routeProgress = Math.max(0, Math.min(100, (state.eraIndex / (eras.length - 1)) * 100));
+      const active = journeyEraList();
+      const activePoints = active.map(era => mapPoints[eras.findIndex(item => item.name === era.name)]);
+      const currentPoint = activePoints[state.eraIndex] || activePoints[0] || mapPoints[0];
+      const routeProgress = Math.max(0, Math.min(100, active.length <= 1 ? 100 : (state.eraIndex / (active.length - 1)) * 100));
       const offset = 100 - routeProgress;
+      const path = routePath(activePoints);
       return `
         <svg class="journey-map" viewBox="0 0 900 540" role="img" aria-label="Map showing journey through Scripture eras">
           <defs>
@@ -2427,10 +3199,10 @@
             <ellipse cx="701" cy="53" rx="56" ry="14"/>
             <ellipse cx="748" cy="48" rx="35" ry="10"/>
           </g>
-          <path class="route-base" d="${routePath()}"/>
-          <path class="route-active" pathLength="100" d="${routePath()}" style="stroke-dashoffset:${offset}"/>
-          ${eras.map((era, index) => {
-            const point = mapPoints[index];
+          <path class="route-base" d="${path}"/>
+          <path class="route-active" pathLength="100" d="${path}" style="stroke-dashoffset:${offset}"/>
+          ${active.map((era, index) => {
+            const point = activePoints[index];
             const completed = state.stamps.includes(era.name);
             const status = index === state.eraIndex ? "marker-current" : completed ? "marker-completed" : "marker-pending";
             const labelY = point.y + (index % 2 === 0 ? 42 : -32);
