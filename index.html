@@ -4,9 +4,2468 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Bible Journey Challenge</title>
+  <style>
+    :root {
+      --navy: #0d1a2d;
+      --navy-2: #152641;
+      --gold: #c89b3c;
+      --gold-2: #f1d58a;
+      --olive: #52663b;
+      --olive-2: #7f8f5b;
+      --sand: #b99363;
+      --copper: #9a5634;
+      --parchment: #f2e3bf;
+      --parchment-2: #dfc99a;
+      --ink: #253044;
+      --muted: #6b5f4c;
+      --ivory: #fff8e8;
+      --line: rgba(37, 48, 68, 0.18);
+      --shadow: 0 20px 55px rgba(0, 0, 0, 0.32);
+      --radius: 8px;
+      --focus: 0 0 0 3px rgba(241, 213, 138, 0.45);
+      color-scheme: dark;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-height: 100%;
+      background: var(--navy);
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      color: var(--ivory);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      background:
+        radial-gradient(circle at 20% 8%, rgba(200, 155, 60, 0.18), transparent 28rem),
+        linear-gradient(135deg, rgba(13, 26, 45, 0.95), rgba(21, 38, 65, 0.94)),
+        var(--navy);
+    }
+
+    body::before {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      content: "";
+      opacity: 0.24;
+      background-image:
+        linear-gradient(rgba(255, 248, 232, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 248, 232, 0.035) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: linear-gradient(to bottom, black, transparent 88%);
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      min-height: 44px;
+      border: 0;
+      cursor: pointer;
+    }
+
+    button:focus-visible,
+    summary:focus-visible,
+    [tabindex]:focus-visible {
+      outline: none;
+      box-shadow: var(--focus);
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.55;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    .app-shell {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+    }
+
+    .screen {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 32px 0;
+    }
+
+    .home-screen {
+      display: grid;
+      min-height: 100vh;
+      align-items: center;
+      padding-bottom: 48px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(241, 213, 138, 0.26);
+      border-radius: var(--radius);
+      min-height: min(720px, calc(100vh - 64px));
+      background:
+        linear-gradient(120deg, rgba(13, 26, 45, 0.2), rgba(13, 26, 45, 0.78)),
+        var(--parchment);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-map {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      color: var(--ink);
+    }
+
+    .hero-content {
+      position: relative;
+      display: grid;
+      align-content: end;
+      min-height: min(720px, calc(100vh - 64px));
+      padding: clamp(28px, 6vw, 70px);
+      background: linear-gradient(to top, rgba(13, 26, 45, 0.96), rgba(13, 26, 45, 0.74) 45%, rgba(13, 26, 45, 0.2));
+    }
+
+    .kicker {
+      display: inline-flex;
+      width: max-content;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      color: var(--gold-2);
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .kicker::before {
+      width: 38px;
+      height: 1px;
+      background: currentColor;
+      content: "";
+    }
+
+    .hero h1 {
+      max-width: 900px;
+      margin-bottom: 14px;
+      color: #fff8e8;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(3rem, 10vw, 8.4rem);
+      font-weight: 700;
+      line-height: 0.86;
+      letter-spacing: 0;
+      text-wrap: balance;
+    }
+
+    .subtitle {
+      max-width: 720px;
+      margin-bottom: 28px;
+      color: rgba(255, 248, 232, 0.86);
+      font-size: clamp(1rem, 2vw, 1.35rem);
+      line-height: 1.55;
+      text-wrap: balance;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 1px solid rgba(241, 213, 138, 0.24);
+      border-radius: var(--radius);
+      padding: 12px 18px;
+      color: var(--ivory);
+      background: rgba(255, 248, 232, 0.08);
+      transition: transform 160ms ease, background 160ms ease, border-color 160ms ease, color 160ms ease;
+    }
+
+    .btn svg {
+      width: 19px;
+      height: 19px;
+      flex: 0 0 auto;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(241, 213, 138, 0.5);
+      background: rgba(255, 248, 232, 0.14);
+    }
+
+    .btn-primary {
+      border-color: rgba(241, 213, 138, 0.7);
+      color: #1b2333;
+      background: linear-gradient(180deg, #f4d98d, #c89b3c);
+      font-weight: 800;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(180deg, #ffe8a9, #d2a346);
+      color: #1b2333;
+    }
+
+    .btn-copper {
+      border-color: rgba(188, 107, 66, 0.72);
+      background: linear-gradient(180deg, #bc6b42, #8b4b30);
+      color: #fff8e8;
+      font-weight: 800;
+    }
+
+    .btn-quiet {
+      border-color: transparent;
+      background: rgba(255, 248, 232, 0.04);
+    }
+
+    .view-header {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .brand-lockup {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 48px;
+      height: 48px;
+      flex: 0 0 auto;
+      place-items: center;
+      border: 1px solid rgba(241, 213, 138, 0.38);
+      border-radius: 50%;
+      color: var(--gold-2);
+      background: rgba(255, 248, 232, 0.08);
+    }
+
+    .brand-mark svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    .brand-title {
+      min-width: 0;
+    }
+
+    .brand-title h2 {
+      margin-bottom: 1px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.35rem, 4vw, 2.1rem);
+      line-height: 1;
+    }
+
+    .brand-title p {
+      margin: 0;
+      color: rgba(255, 248, 232, 0.66);
+      font-size: 0.92rem;
+    }
+
+    .game-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(300px, 360px);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .main-column,
+    .side-column {
+      display: grid;
+      gap: 18px;
+    }
+
+    .panel {
+      border: 1px solid rgba(241, 213, 138, 0.24);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(180deg, rgba(255, 248, 232, 0.09), rgba(255, 248, 232, 0.045)),
+        rgba(13, 26, 45, 0.8);
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22);
+    }
+
+    .panel-pad {
+      padding: 18px;
+    }
+
+    .map-panel {
+      overflow: hidden;
+      background: var(--parchment);
+      color: var(--ink);
+    }
+
+    .map-toolbar {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(37, 48, 68, 0.14);
+      color: var(--ink);
+      background: rgba(255, 248, 232, 0.62);
+    }
+
+    .era-chip {
+      display: inline-flex;
+      min-width: 0;
+      align-items: center;
+      gap: 9px;
+      color: var(--ink);
+      font-weight: 800;
+    }
+
+    .era-chip span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .era-dot {
+      width: 12px;
+      height: 12px;
+      flex: 0 0 auto;
+      border: 2px solid #fff8e8;
+      border-radius: 50%;
+      background: var(--copper);
+      box-shadow: 0 0 0 3px rgba(154, 86, 52, 0.22);
+    }
+
+    .progress-meter {
+      width: min(270px, 42vw);
+      height: 8px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(37, 48, 68, 0.14);
+    }
+
+    .progress-meter span {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--olive), var(--gold), var(--copper));
+      transition: width 360ms ease;
+    }
+
+    .journey-map {
+      display: block;
+      width: 100%;
+      min-height: 360px;
+      max-height: 560px;
+      aspect-ratio: 16 / 9;
+      background: var(--parchment);
+    }
+
+    .map-label {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 20px;
+      font-weight: 700;
+      fill: #253044;
+      paint-order: stroke;
+      stroke: rgba(255, 248, 232, 0.8);
+      stroke-width: 5;
+      stroke-linejoin: round;
+    }
+
+    .map-note {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      fill: rgba(37, 48, 68, 0.66);
+    }
+
+    .route-base {
+      fill: none;
+      stroke: rgba(37, 48, 68, 0.24);
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 12;
+    }
+
+    .route-active {
+      fill: none;
+      stroke: url(#routeGradient);
+      stroke-dasharray: 100;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 7;
+      transition: stroke-dashoffset 520ms ease;
+    }
+
+    .river {
+      fill: none;
+      stroke: rgba(45, 96, 119, 0.48);
+      stroke-dasharray: 12 10;
+      stroke-linecap: round;
+      stroke-width: 7;
+      animation: riverFlow 14s linear infinite;
+    }
+
+    .cloud {
+      opacity: 0.28;
+      animation: drift 26s ease-in-out infinite alternate;
+    }
+
+    .marker-completed .marker-ring {
+      fill: rgba(200, 155, 60, 0.28);
+      stroke: rgba(200, 155, 60, 0.95);
+    }
+
+    .marker-current .marker-ring {
+      fill: rgba(154, 86, 52, 0.27);
+      stroke: #9a5634;
+      filter: url(#glow);
+    }
+
+    .marker-pending .marker-ring {
+      fill: rgba(255, 248, 232, 0.34);
+      stroke: rgba(37, 48, 68, 0.28);
+    }
+
+    .marker-pin {
+      fill: #fff8e8;
+      stroke: rgba(37, 48, 68, 0.35);
+      stroke-width: 2;
+    }
+
+    .player-marker {
+      filter: url(#glow);
+      transition: transform 520ms ease;
+    }
+
+    .challenge-panel h3,
+    .daily-card h3,
+    .ending-card h3 {
+      margin-bottom: 6px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.45rem, 4vw, 2.2rem);
+      line-height: 1.04;
+    }
+
+    .eyebrow {
+      margin-bottom: 9px;
+      color: var(--gold-2);
+      font-size: 0.74rem;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .prompt {
+      color: rgba(255, 248, 232, 0.9);
+      font-size: 1.05rem;
+      line-height: 1.55;
+    }
+
+    .group-note {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin: 14px 0;
+      padding: 12px;
+      border-left: 3px solid var(--gold);
+      border-radius: var(--radius);
+      color: #fff7db;
+      background: rgba(82, 102, 59, 0.25);
+    }
+
+    .group-note svg {
+      width: 20px;
+      height: 20px;
+      flex: 0 0 auto;
+      color: var(--gold-2);
+    }
+
+    .option-grid {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .choice {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 12px;
+      align-items: center;
+      width: 100%;
+      min-height: 56px;
+      padding: 12px;
+      border: 1px solid rgba(241, 213, 138, 0.2);
+      border-radius: var(--radius);
+      color: var(--ivory);
+      text-align: left;
+      background: rgba(255, 248, 232, 0.075);
+    }
+
+    .choice:hover {
+      border-color: rgba(241, 213, 138, 0.5);
+      background: rgba(255, 248, 232, 0.13);
+    }
+
+    .choice-icon {
+      display: grid;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--gold-2);
+      background: rgba(13, 26, 45, 0.48);
+    }
+
+    .choice-icon svg,
+    .mini-icon {
+      width: 18px;
+      height: 18px;
+    }
+
+    .choice strong {
+      display: block;
+      color: #fff8e8;
+      font-size: 0.98rem;
+      line-height: 1.25;
+    }
+
+    .choice small {
+      display: block;
+      margin-top: 3px;
+      color: rgba(255, 248, 232, 0.62);
+      font-size: 0.8rem;
+      line-height: 1.35;
+    }
+
+    .choice .arrow {
+      color: rgba(241, 213, 138, 0.72);
+    }
+
+    .result-band {
+      display: grid;
+      gap: 14px;
+      margin-top: 16px;
+      padding: 16px;
+      border: 1px solid rgba(241, 213, 138, 0.2);
+      border-radius: var(--radius);
+      background: rgba(255, 248, 232, 0.07);
+    }
+
+    .result-band p {
+      margin-bottom: 0;
+      color: rgba(255, 248, 232, 0.86);
+      line-height: 1.55;
+    }
+
+    .discovery {
+      border-left: 3px solid var(--gold);
+      padding: 2px 0 2px 13px;
+    }
+
+    .discovery strong {
+      display: block;
+      color: var(--gold-2);
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .reflection {
+      border-color: rgba(126, 143, 91, 0.58);
+      background: rgba(82, 102, 59, 0.2);
+    }
+
+    .action-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-top: 16px;
+    }
+
+    .stats-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .stat-row {
+      display: grid;
+      grid-template-columns: minmax(92px, 1fr) auto;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .stat-row label {
+      color: rgba(255, 248, 232, 0.88);
+      font-size: 0.88rem;
+      font-weight: 750;
+    }
+
+    .stat-value {
+      color: var(--gold-2);
+      font-size: 0.84rem;
+      font-weight: 900;
+    }
+
+    .bar {
+      grid-column: 1 / -1;
+      height: 8px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255, 248, 232, 0.12);
+    }
+
+    .bar span {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--olive-2), var(--gold), var(--copper));
+      transition: width 320ms ease;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .section-title h3 {
+      margin: 0;
+      color: #fff8e8;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.15rem;
+    }
+
+    .count-pill {
+      display: inline-flex;
+      min-width: 32px;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(241, 213, 138, 0.26);
+      border-radius: 999px;
+      padding: 3px 9px;
+      color: var(--gold-2);
+      font-size: 0.8rem;
+      font-weight: 900;
+      background: rgba(255, 248, 232, 0.07);
+    }
+
+    .stamp-grid,
+    .seal-grid,
+    .discovery-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .stamp {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      min-height: 40px;
+      border: 1px dashed rgba(241, 213, 138, 0.22);
+      border-radius: var(--radius);
+      padding: 8px 10px;
+      color: rgba(255, 248, 232, 0.68);
+      background: rgba(255, 248, 232, 0.045);
+    }
+
+    .stamp.done {
+      border-style: solid;
+      border-color: rgba(200, 155, 60, 0.5);
+      color: #fff8e8;
+      background: rgba(200, 155, 60, 0.13);
+    }
+
+    .stamp-mark {
+      color: var(--gold-2);
+      font-size: 0.78rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .wax-seal {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 10px;
+      align-items: center;
+      min-height: 52px;
+      border-radius: var(--radius);
+      padding: 8px;
+      background: rgba(255, 248, 232, 0.06);
+    }
+
+    .wax-seal svg {
+      width: 40px;
+      height: 40px;
+      flex: 0 0 auto;
+    }
+
+    .wax-seal strong {
+      color: #fff8e8;
+      font-size: 0.92rem;
+      line-height: 1.2;
+    }
+
+    .wax-seal span {
+      color: rgba(255, 248, 232, 0.58);
+      font-size: 0.78rem;
+    }
+
+    .seal-empty {
+      color: rgba(255, 248, 232, 0.6);
+      line-height: 1.45;
+    }
+
+    .discovery-item {
+      border-left: 2px solid rgba(241, 213, 138, 0.5);
+      padding-left: 10px;
+      color: rgba(255, 248, 232, 0.78);
+      font-size: 0.86rem;
+      line-height: 1.42;
+    }
+
+    .leader-guide details {
+      border-top: 1px solid rgba(255, 248, 232, 0.12);
+      padding: 10px 0;
+    }
+
+    .leader-guide details:first-of-type {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    .leader-guide summary {
+      cursor: pointer;
+      color: #fff8e8;
+      font-weight: 800;
+      list-style: none;
+    }
+
+    .leader-guide summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .guide-content {
+      display: grid;
+      gap: 8px;
+      margin-top: 10px;
+      color: rgba(255, 248, 232, 0.75);
+      font-size: 0.86rem;
+      line-height: 1.45;
+    }
+
+    .guide-content strong {
+      color: var(--gold-2);
+    }
+
+    .how-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 380px);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .rules-list {
+      display: grid;
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .rules-list li {
+      display: grid;
+      grid-template-columns: 38px 1fr;
+      gap: 12px;
+      align-items: start;
+      min-height: 46px;
+      padding: 12px;
+      border-radius: var(--radius);
+      background: rgba(255, 248, 232, 0.06);
+    }
+
+    .rule-number {
+      display: grid;
+      width: 32px;
+      height: 32px;
+      place-items: center;
+      border: 1px solid rgba(241, 213, 138, 0.32);
+      border-radius: 50%;
+      color: var(--gold-2);
+      font-weight: 900;
+    }
+
+    .virtue-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .virtue-token {
+      border: 1px solid rgba(241, 213, 138, 0.25);
+      border-radius: 999px;
+      padding: 8px 10px;
+      color: #fff8e8;
+      background: rgba(255, 248, 232, 0.07);
+      font-weight: 800;
+    }
+
+    .daily-focus {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      margin-bottom: 16px;
+      padding: 14px;
+      border-radius: var(--radius);
+      background: rgba(200, 155, 60, 0.13);
+    }
+
+    .daily-focus .brand-mark {
+      width: 58px;
+      height: 58px;
+      background: rgba(154, 86, 52, 0.22);
+    }
+
+    .final-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(310px, 420px);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .summary-card {
+      overflow: hidden;
+      border: 1px solid rgba(241, 213, 138, 0.36);
+      border-radius: var(--radius);
+      color: var(--ink);
+      background:
+        linear-gradient(rgba(255, 248, 232, 0.86), rgba(255, 248, 232, 0.9)),
+        var(--parchment);
+      box-shadow: var(--shadow);
+    }
+
+    .summary-art {
+      position: relative;
+      min-height: 170px;
+      background: #e7d2a6;
+    }
+
+    .summary-art svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .summary-body {
+      padding: 18px;
+    }
+
+    .summary-card h3 {
+      margin-bottom: 6px;
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.7rem, 5vw, 2.6rem);
+      line-height: 1;
+    }
+
+    .summary-card p {
+      color: #514534;
+      line-height: 1.5;
+    }
+
+    .verse {
+      margin: 16px 0 0;
+      padding: 14px;
+      border-left: 4px solid var(--copper);
+      color: #352c20;
+      background: rgba(255, 248, 232, 0.66);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.05rem;
+      line-height: 1.5;
+    }
+
+    .score-table {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .score-line {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: center;
+      color: rgba(255, 248, 232, 0.86);
+    }
+
+    .empty-state {
+      color: rgba(255, 248, 232, 0.62);
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+    }
+
+    @keyframes drift {
+      from { transform: translateX(-16px); }
+      to { transform: translateX(20px); }
+    }
+
+    @keyframes riverFlow {
+      from { stroke-dashoffset: 0; }
+      to { stroke-dashoffset: -44; }
+    }
+
+    @keyframes sealShimmer {
+      0%, 100% { filter: brightness(1); }
+      50% { filter: brightness(1.2); }
+    }
+
+    .wax-seal.earned svg {
+      animation: sealShimmer 3.5s ease-in-out infinite;
+    }
+
+    @media (max-width: 930px) {
+      .screen {
+        width: min(100% - 24px, 720px);
+      }
+
+      .game-layout,
+      .how-grid,
+      .final-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .side-column {
+        grid-template-columns: 1fr;
+      }
+
+      .view-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .screen {
+        width: min(100% - 18px, 430px);
+        padding: 18px 0;
+      }
+
+      .hero,
+      .hero-content {
+        min-height: calc(100vh - 36px);
+      }
+
+      .hero-content {
+        padding: 22px;
+      }
+
+      .hero-actions,
+      .action-row {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .btn,
+      .choice {
+        width: 100%;
+      }
+
+      .map-toolbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .progress-meter {
+        width: 100%;
+      }
+
+      .journey-map {
+        min-height: 300px;
+      }
+
+      .choice {
+        grid-template-columns: auto 1fr;
+      }
+
+      .choice .arrow {
+        display: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+
+      .view-header,
+      .side-column,
+      .main-column > :not(.ending-card),
+      .action-row {
+        display: none !important;
+      }
+
+      .screen,
+      .final-grid {
+        width: 100%;
+        display: block;
+        padding: 0;
+      }
+
+      .summary-card {
+        box-shadow: none;
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1>Bible Journey Challenge</h1>
-  <p>Temporary starter page. The full uploaded game file was too large for this connector message path.</p>
+  <div id="app" class="app-shell" aria-live="polite"></div>
+
+  <script>
+    const virtues = ["Faith", "Wisdom", "Courage", "Compassion", "Service"];
+
+    const virtueDescriptions = {
+      Faith: "You leaned toward trust when the path asked for patience and surrender.",
+      Wisdom: "You often paused to discern what would sustain people beyond the immediate moment.",
+      Courage: "You stepped toward difficult obedience instead of waiting for perfect certainty.",
+      Compassion: "You noticed people in need and made space for mercy in your decisions.",
+      Service: "You chose practical faithfulness, strengthening others through quiet action."
+    };
+
+    const virtueVerses = {
+      Faith: "Now faith is the assurance of things hoped for, the conviction of things not seen. Hebrews 11:1",
+      Wisdom: "If any of you lacks wisdom, let him ask God, who gives generously to all. James 1:5",
+      Courage: "Be strong and courageous. Do not be frightened, and do not be dismayed. Joshua 1:9",
+      Compassion: "Be kind to one another, tenderhearted, forgiving one another. Ephesians 4:32",
+      Service: "Through love serve one another. Galatians 5:13"
+    };
+
+    const eras = [
+      {
+        name: "Creation",
+        references: "Genesis 1-2; Psalm 8",
+        lesson: "Human life begins with gift, purpose, rest, and stewardship.",
+        discussion: [
+          "Where do you most clearly notice God's goodness in ordinary life?",
+          "What would faithful stewardship look like in your home or community this week?"
+        ],
+        prayer: "Creator God, teach us to receive the world with wonder and care.",
+        reflection: "Where have you been invited to care for something that belongs first to God?",
+        discoveryPool: [
+          "Genesis presents creation as good before people accomplish anything. Identity begins with gift.",
+          "The Sabbath pattern ties worship and rest together, shaping a life that is not ruled by production.",
+          "Being made in God's image includes vocation: reflecting God's care into the world."
+        ],
+        challenges: [
+          {
+            title: "A Valley Entrusted",
+            prompt: "A fertile valley can provide quick gain or long-term life for many families. The community asks you to help shape its future.",
+            options: [
+              { text: "Protect the land so future families can flourish.", virtues: { Wisdom: 2, Service: 1 }, note: "Long obedience can be a form of worship.", feedback: "You treated creation as a trust, not a possession." },
+              { text: "Gather people first to listen, pray, and plan together.", virtues: { Compassion: 1, Wisdom: 1, Faith: 1 }, note: "Shared discernment can deepen care.", feedback: "You made room for many voices before action." },
+              { text: "Begin restoring damaged places with whoever is ready.", virtues: { Service: 2, Courage: 1 }, note: "Small repairs can become a witness.", feedback: "You chose faithful work over endless debate." }
+            ]
+          },
+          {
+            title: "The Rhythm of Rest",
+            prompt: "The work is good, but the pace is consuming everyone. A day of rest feels costly.",
+            options: [
+              { text: "Set aside rest as an act of trust.", virtues: { Faith: 2, Wisdom: 1 }, note: "Rest can confess that God is provider.", feedback: "You honored limits as part of God's design." },
+              { text: "Create a shared rhythm where the vulnerable are protected from overwork.", virtues: { Compassion: 2, Service: 1 }, note: "Rest is good news when everyone receives it.", feedback: "You protected people, not only productivity." },
+              { text: "Teach the group to celebrate the good already given.", virtues: { Faith: 1, Wisdom: 1, Courage: 1 }, note: "Gratitude reshapes urgency.", feedback: "You answered pressure with worshipful perspective." }
+            ]
+          },
+          {
+            title: "Naming the Garden",
+            prompt: "A new responsibility is placed before you. It will require attention, patience, and humility.",
+            options: [
+              { text: "Study carefully before making decisions.", virtues: { Wisdom: 2, Service: 1 }, note: "Attention is one way to love what God has made.", feedback: "You began with careful observation." },
+              { text: "Ask what this responsibility reveals about God's character.", virtues: { Faith: 2, Wisdom: 1 }, note: "Wonder can become formation.", feedback: "You turned responsibility into worship." },
+              { text: "Invite others to share the work so no one carries it alone.", virtues: { Compassion: 1, Service: 2 }, note: "Vocation matures in community.", feedback: "You formed a shared calling." }
+            ]
+          },
+          {
+            title: "Image Bearers",
+            prompt: "Two neighbors disagree about who deserves honor. The room is tense and everyone is watching.",
+            options: [
+              { text: "Name the dignity of both people before solving the dispute.", virtues: { Compassion: 2, Courage: 1 }, note: "Dignity is not earned by winning.", feedback: "You began where Scripture begins: people bear God's image." },
+              { text: "Slow the conversation until truth and love can both be heard.", virtues: { Wisdom: 2, Compassion: 1 }, note: "Peacemaking often needs pace.", feedback: "You resisted the pressure to simplify people." },
+              { text: "Offer to serve both households in a practical way.", virtues: { Service: 2, Faith: 1 }, note: "Service can soften a hard table.", feedback: "You let embodied care speak." }
+            ]
+          }
+        ]
+      },
+      {
+        name: "Noah",
+        references: "Genesis 6-9; Hebrews 11:7",
+        lesson: "Faithfulness may look strange before it looks wise.",
+        discussion: [
+          "What helps a person keep obeying when the outcome is not yet visible?",
+          "How can preparation become an expression of love rather than fear?"
+        ],
+        prayer: "Lord, make us faithful in hidden work and steady in uncertain days.",
+        reflection: "When have you prepared faithfully for something others could not yet see?",
+        discoveryPool: [
+          "The ark story ends with covenant mercy, not merely survival.",
+          "Noah's obedience involved long preparation before visible confirmation.",
+          "The rainbow becomes a sign of God's commitment to creation."
+        ],
+        challenges: [
+          {
+            title: "Work Before Rain",
+            prompt: "The warning is serious, but the sky is clear. People question why you are preparing so carefully.",
+            options: [
+              { text: "Keep building with patient trust.", virtues: { Faith: 2, Courage: 1 }, note: "Faithfulness can continue without applause.", feedback: "You chose obedience before evidence became public." },
+              { text: "Explain the purpose calmly and invite others to help.", virtues: { Wisdom: 1, Compassion: 1, Service: 1 }, note: "Witness can be both clear and gentle.", feedback: "You made preparation a doorway for others." },
+              { text: "Organize the work so the most vulnerable are protected first.", virtues: { Compassion: 2, Service: 1 }, note: "Protection reveals what we value.", feedback: "You prepared with mercy at the center." }
+            ]
+          },
+          {
+            title: "Limited Space",
+            prompt: "Supplies are limited and the needs are many. The plan must be disciplined.",
+            options: [
+              { text: "Create a careful inventory before assigning resources.", virtues: { Wisdom: 2, Service: 1 }, note: "Order can serve life.", feedback: "You used planning as an act of care." },
+              { text: "Ask each family what they can contribute and what they lack.", virtues: { Compassion: 2, Wisdom: 1 }, note: "Listening reveals hidden needs.", feedback: "You planned from the ground level." },
+              { text: "Take the difficult first watch yourself.", virtues: { Courage: 1, Service: 2 }, note: "Leadership often starts with the hardest task.", feedback: "You strengthened trust by serving visibly." }
+            ]
+          },
+          {
+            title: "After the Flood",
+            prompt: "The waters recede. Everyone is exhausted. The first decision will shape the new beginning.",
+            options: [
+              { text: "Begin with worship and gratitude.", virtues: { Faith: 2, Wisdom: 1 }, note: "Gratitude roots a new start in God.", feedback: "You marked survival as grace." },
+              { text: "Check on each person and name what has been lost.", virtues: { Compassion: 2, Service: 1 }, note: "New beginnings still need lament.", feedback: "You did not rush past grief." },
+              { text: "Set practical rhythms for rebuilding together.", virtues: { Service: 2, Courage: 1 }, note: "Hope needs hands.", feedback: "You moved the group toward faithful rebuilding." }
+            ]
+          },
+          {
+            title: "A Sign in the Sky",
+            prompt: "A visible sign reminds the people that judgment is not the final word. They need to remember.",
+            options: [
+              { text: "Tell the story so children and elders both remember the covenant.", virtues: { Faith: 1, Wisdom: 1, Compassion: 1 }, note: "Memory can guard a community.", feedback: "You turned a sign into formation." },
+              { text: "Create a shared practice of thanksgiving after storms.", virtues: { Faith: 2, Service: 1 }, note: "Repeated gratitude trains trust.", feedback: "You gave the community a rhythm of remembrance." },
+              { text: "Use the moment to reconcile people who blamed each other.", virtues: { Courage: 1, Compassion: 2 }, note: "Mercy often begins after fear loosens.", feedback: "You chose covenant peace over suspicion." }
+            ]
+          }
+        ]
+      },
+      {
+        name: "Abraham",
+        references: "Genesis 12; Genesis 15; Genesis 18; Hebrews 11:8-12",
+        lesson: "Faith walks with God through promise, waiting, hospitality, and surrender.",
+        discussion: [
+          "What promise or calling has required patience from you?",
+          "How does hospitality change the way we recognize God's work?"
+        ],
+        prayer: "God of promise, steady us when the road is long and the answer is slow.",
+        reflection: "When have you trusted God when the outcome was uncertain?",
+        discoveryPool: [
+          "Abraham's journey begins with a call to bless all families of the earth.",
+          "Biblical faith often includes waiting, questioning, and renewed trust.",
+          "Hospitality in Genesis 18 becomes a place where promise is heard again."
+        ],
+        challenges: [
+          {
+            title: "Leave the Familiar",
+            prompt: "A call comes to leave what is known for a promise not yet fully mapped.",
+            options: [
+              { text: "Take the next faithful step with limited information.", virtues: { Faith: 2, Courage: 1 }, note: "Calling rarely arrives with every mile labeled.", feedback: "You trusted the Caller more than the map." },
+              { text: "Bless the people you leave before beginning the journey.", virtues: { Compassion: 1, Service: 2 }, note: "Transitions can carry blessing.", feedback: "You refused to let obedience become self-absorption." },
+              { text: "Prepare wisely so your household can travel well.", virtues: { Wisdom: 2, Service: 1 }, note: "Faith can include careful preparation.", feedback: "You honored both trust and responsibility." }
+            ]
+          },
+          {
+            title: "Stars Above the Tent",
+            prompt: "The promise feels impossible. Night falls, and doubt sits beside you.",
+            options: [
+              { text: "Bring the doubt honestly before God.", virtues: { Faith: 2, Wisdom: 1 }, note: "Honest prayer can be part of trust.", feedback: "You chose relationship over pretending." },
+              { text: "Ask trusted companions to remember the promise with you.", virtues: { Compassion: 1, Faith: 1, Service: 1 }, note: "Community can carry memory.", feedback: "You let others strengthen hope." },
+              { text: "Act with integrity while waiting for the promise.", virtues: { Courage: 1, Wisdom: 2 }, note: "Waiting tests character.", feedback: "You guarded the present while trusting the future." }
+            ]
+          },
+          {
+            title: "Visitors at Noon",
+            prompt: "Travelers appear near your tent in the heat of the day. You are tired and busy.",
+            options: [
+              { text: "Welcome them generously before knowing what they can offer.", virtues: { Compassion: 2, Service: 1 }, note: "Hospitality honors mystery.", feedback: "You made room for strangers at your table." },
+              { text: "Gather the household to serve with dignity and attention.", virtues: { Service: 2, Wisdom: 1 }, note: "Excellence can be a form of welcome.", feedback: "You turned the whole household toward blessing." },
+              { text: "Listen carefully for the word they bring.", virtues: { Faith: 1, Wisdom: 2 }, note: "Hospitality includes listening.", feedback: "You received more than guests; you received promise." }
+            ]
+          },
+          {
+            title: "Choosing Peace",
+            prompt: "Resources are stretched and conflict grows between households.",
+            options: [
+              { text: "Let the other household choose first.", virtues: { Faith: 2, Compassion: 1 }, note: "Generosity can reveal trust.", feedback: "You loosened your grip to protect peace." },
+              { text: "Name the conflict early before resentment hardens.", virtues: { Courage: 2, Wisdom: 1 }, note: "Peace often requires timely truth.", feedback: "You stepped toward clarity before division deepened." },
+              { text: "Design a fair plan that safeguards both groups.", virtues: { Wisdom: 2, Service: 1 }, note: "Justice and practicality belong together.", feedback: "You served the future of both households." }
+            ]
+          }
+        ]
+      },
+      {
+        name: "Moses",
+        references: "Exodus 3-14; Exodus 16-18; Deuteronomy 6",
+        lesson: "God forms leaders who depend on him and serve a whole community.",
+        discussion: [
+          "What makes leadership difficult when people are afraid?",
+          "Where do you see God's provision most clearly in wilderness seasons?"
+        ],
+        prayer: "Delivering God, teach us courage, humility, and faithful leadership.",
+        reflection: "What wilderness lesson are you still learning?",
+        discoveryPool: [
+          "The exodus shapes Scripture's language of rescue, worship, and covenant identity.",
+          "Moses repeatedly intercedes for the people he leads, even when they frustrate him.",
+          "The wilderness stories show provision one day at a time."
+        ],
+        challenges: [
+          {
+            title: "At the Burning Bush",
+            prompt: "A calling comes with more weight than you feel able to carry.",
+            options: [
+              { text: "Name your fear honestly and still listen for God's answer.", virtues: { Faith: 2, Wisdom: 1 }, note: "Calling can include honest weakness.", feedback: "You stayed in the conversation instead of fleeing it." },
+              { text: "Ask who should help carry the mission.", virtues: { Wisdom: 1, Service: 1, Compassion: 1 }, note: "Shared leadership can be God's provision.", feedback: "You opened space for partnership." },
+              { text: "Return to the people despite the risk.", virtues: { Courage: 2, Service: 1 }, note: "Deliverance often asks someone to go back.", feedback: "You stepped toward those who needed freedom." }
+            ]
+          },
+          {
+            title: "At the Sea",
+            prompt: "The sea is ahead, danger is behind, and fear spreads through the camp.",
+            options: [
+              { text: "Call the people to remember God's rescue.", virtues: { Faith: 2, Courage: 1 }, note: "Memory can steady panic.", feedback: "You answered fear with remembered grace." },
+              { text: "Organize the vulnerable near trusted families.", virtues: { Compassion: 2, Service: 1 }, note: "Order can shelter the afraid.", feedback: "You led with protection, not performance." },
+              { text: "Stand firm while waiting for the next command.", virtues: { Courage: 2, Wisdom: 1 }, note: "Some moments require disciplined stillness.", feedback: "You chose steadiness in a narrow place." }
+            ]
+          },
+          {
+            title: "Bread in the Wilderness",
+            prompt: "Provision arrives daily, but some want to hoard more than they need.",
+            options: [
+              { text: "Teach the rhythm of receiving enough for today.", virtues: { Faith: 2, Wisdom: 1 }, note: "Daily bread forms daily trust.", feedback: "You helped the community practice dependence." },
+              { text: "Make sure every household receives what they need.", virtues: { Compassion: 2, Service: 1 }, note: "Provision is communal, not merely personal.", feedback: "You guarded the vulnerable from being overlooked." },
+              { text: "Confront the fear driving the hoarding.", virtues: { Courage: 1, Wisdom: 2 }, note: "Fear often hides under excess.", feedback: "You addressed the heart of the problem." }
+            ]
+          },
+          {
+            title: "Too Much to Carry",
+            prompt: "Every dispute comes to you. The burden is wearing you down and slowing the people.",
+            options: [
+              { text: "Appoint trustworthy leaders and share responsibility.", virtues: { Wisdom: 2, Service: 1 }, note: "Delegation can serve justice.", feedback: "You strengthened the whole community." },
+              { text: "Train others patiently instead of keeping control.", virtues: { Service: 2, Compassion: 1 }, note: "Equipping others is a hidden ministry.", feedback: "You multiplied care beyond yourself." },
+              { text: "Admit the current pattern is unsustainable.", virtues: { Courage: 1, Wisdom: 2 }, note: "Humility can protect a calling.", feedback: "You let truth reshape leadership." }
+            ]
+          }
+        ]
+      },
+      {
+        name: "David",
+        references: "1 Samuel 16-24; 2 Samuel 9; Psalm 51",
+        lesson: "Courage and worship mature through humility, mercy, and repentance.",
+        discussion: [
+          "How can courage remain humble?",
+          "What does mercy look like when you have power?"
+        ],
+        prayer: "Shepherd King, form courage in us that serves rather than boasts.",
+        reflection: "Where is God inviting you to practice humble courage?",
+        discoveryPool: [
+          "David is introduced as a shepherd before he is known as a king.",
+          "Many psalms give language for worship, fear, confession, and hope.",
+          "David's mercy toward Mephibosheth shows covenant loyalty expressed at a table."
+        ],
+        challenges: [
+          {
+            title: "The Valley",
+            prompt: "A giant threat has frozen the army. The smallest faithful action now looks unreasonable.",
+            options: [
+              { text: "Step forward because God's reputation matters more than fear.", virtues: { Courage: 2, Faith: 1 }, note: "Courage can begin in worship.", feedback: "You treated fear as real but not final." },
+              { text: "Use the tools you have already practiced with.", virtues: { Wisdom: 2, Courage: 1 }, note: "Faithfulness often uses ordinary preparation.", feedback: "You trusted the training of hidden years." },
+              { text: "Encourage the frightened before entering the fight.", virtues: { Compassion: 1, Service: 2 }, note: "Bravery can strengthen others.", feedback: "You made courage contagious." }
+            ]
+          },
+          {
+            title: "In the Cave",
+            prompt: "Your enemy is vulnerable. People around you say this is the perfect chance to take revenge.",
+            options: [
+              { text: "Refuse revenge and trust God with timing.", virtues: { Faith: 2, Wisdom: 1 }, note: "Restraint can be a deep act of trust.", feedback: "You chose patience over grasping power." },
+              { text: "Speak truth without using the moment to destroy.", virtues: { Courage: 1, Compassion: 2 }, note: "Mercy does not require silence.", feedback: "You held truth and mercy together." },
+              { text: "Lead your companions away from violence.", virtues: { Service: 1, Wisdom: 1, Courage: 1 }, note: "Leadership guides the mood of a group.", feedback: "You protected others from regret." }
+            ]
+          },
+          {
+            title: "A Seat at the Table",
+            prompt: "Someone connected to a former rival is vulnerable and forgotten.",
+            options: [
+              { text: "Restore dignity publicly through welcome.", virtues: { Compassion: 2, Courage: 1 }, note: "Mercy sometimes needs to be visible.", feedback: "You used power to heal fear." },
+              { text: "Provide ongoing care, not only a symbolic gesture.", virtues: { Service: 2, Compassion: 1 }, note: "Covenant kindness has practical shape.", feedback: "You made kindness durable." },
+              { text: "Remember promises made before you held power.", virtues: { Faith: 1, Wisdom: 2 }, note: "Integrity survives changing circumstances.", feedback: "You let covenant memory guide leadership." }
+            ]
+          },
+          {
+            title: "After Failure",
+            prompt: "A trusted voice confronts you with a painful truth about your actions.",
+            options: [
+              { text: "Confess without shifting blame.", virtues: { Courage: 2, Faith: 1 }, note: "Repentance begins with truth.", feedback: "You accepted the mercy that starts in honesty." },
+              { text: "Seek repair for people harmed by your choices.", virtues: { Compassion: 2, Service: 1 }, note: "Confession should move toward restoration.", feedback: "You let sorrow become responsibility." },
+              { text: "Invite wise accountability for the road ahead.", virtues: { Wisdom: 2, Courage: 1 }, note: "Humility creates guardrails.", feedback: "You made future faithfulness concrete." }
+            ]
+          }
+        ]
+      },
+      {
+        name: "Daniel",
+        references: "Daniel 1-6; Jeremiah 29",
+        lesson: "Faithfulness can remain steady in exile, pressure, and public life.",
+        discussion: [
+          "Where do you feel pressure to compromise quietly?",
+          "How can prayer shape courage before a crisis arrives?"
+        ],
+        prayer: "Faithful God, make us people of integrity in every setting.",
+        reflection: "What practice helps your faith remain steady under pressure?",
+        discoveryPool: [
+          "Daniel's faithfulness is practiced in daily habits before it becomes public courage.",
+          "Exile did not erase identity; it tested how identity would be lived.",
+          "Daniel serves with wisdom in a foreign empire while remaining devoted to God."
+        ],
+        challenges: [
+          {
+            title: "A Different Table",
+            prompt: "The royal table offers status, comfort, and a subtle pressure to forget who you are.",
+            options: [
+              { text: "Request a faithful alternative with respect.", virtues: { Wisdom: 2, Courage: 1 }, note: "Conviction can speak with humility.", feedback: "You practiced integrity without contempt." },
+              { text: "Invite friends to stay faithful together.", virtues: { Faith: 1, Compassion: 1, Service: 1 }, note: "Shared habits strengthen identity.", feedback: "You formed a community of remembrance." },
+              { text: "Accept a test that lets faithfulness become visible over time.", virtues: { Faith: 2, Wisdom: 1 }, note: "Time can reveal the fruit of trust.", feedback: "You chose patient witness." }
+            ]
+          },
+          {
+            title: "The Open Window",
+            prompt: "Prayer has become dangerous. The law is public, and your habit is known.",
+            options: [
+              { text: "Continue praying with quiet courage.", virtues: { Faith: 2, Courage: 1 }, note: "Public pressure cannot define worship.", feedback: "You remained anchored in devotion." },
+              { text: "Ask others to pray for courage and wisdom.", virtues: { Compassion: 1, Faith: 1, Wisdom: 1 }, note: "Intercession is shared strength.", feedback: "You did not carry the pressure alone." },
+              { text: "Prepare to answer accusations with clarity and respect.", virtues: { Courage: 1, Wisdom: 2 }, note: "Courage benefits from wise speech.", feedback: "You prepared your witness without panic." }
+            ]
+          },
+          {
+            title: "A Troubled King",
+            prompt: "A powerful leader is shaken by a dream and demands insight from people who are afraid.",
+            options: [
+              { text: "Seek God before offering an answer.", virtues: { Faith: 2, Wisdom: 1 }, note: "Revelation is received, not seized.", feedback: "You began with dependence." },
+              { text: "Protect others from a rash decision while you seek wisdom.", virtues: { Courage: 1, Compassion: 2 }, note: "Wisdom can rescue more than the speaker.", feedback: "You used access to protect lives." },
+              { text: "Give credit to God when insight comes.", virtues: { Faith: 1, Service: 2 }, note: "Humility directs attention rightly.", feedback: "You made truth a service, not a platform." }
+            ]
+          },
+          {
+            title: "Integrity in Office",
+            prompt: "You hold responsibility in a system that does not share your worship. People inspect your work for weakness.",
+            options: [
+              { text: "Let excellence and honesty be your quiet witness.", virtues: { Service: 2, Wisdom: 1 }, note: "Faithfulness includes ordinary work.", feedback: "You treated competence as part of integrity." },
+              { text: "Refuse hidden shortcuts even if they would protect your position.", virtues: { Courage: 2, Faith: 1 }, note: "Integrity is costly before it is admired.", feedback: "You valued faithfulness over security." },
+              { text: "Mentor others to act justly where they have influence.", virtues: { Wisdom: 1, Compassion: 1, Service: 1 }, note: "Influence can become shared justice.", feedback: "You spread integrity through relationships." }
+            ]
+          }
+        ]
+      },
+      {
+        name: "Jesus",
+        references: "Luke 10; Matthew 5-7; Mark 10; John 13",
+        lesson: "The kingdom of God is revealed through mercy, truth, humility, and self-giving love.",
+        discussion: [
+          "Which teaching of Jesus currently feels most challenging to live?",
+          "Who is easy for your group to overlook?"
+        ],
+        prayer: "Lord Jesus, shape our loves until mercy and truth become our way.",
+        reflection: "Where is Jesus inviting you to slow down and notice someone?",
+        discoveryPool: [
+          "Jesus often teaches while moving toward people others ignore or avoid.",
+          "Parables invite listeners to become participants, not spectators.",
+          "At the table and the basin, Jesus shows authority as humble service."
+        ],
+        challenges: [
+          {
+            title: "On the Road",
+            prompt: "Someone has been wounded along the road. The schedule is full and the need is inconvenient.",
+            options: [
+              { text: "Stop and offer costly mercy.", virtues: { Compassion: 2, Service: 1 }, note: "Neighbor love interrupts the schedule.", feedback: "You let mercy set the pace." },
+              { text: "Recruit help so care continues after you leave.", virtues: { Wisdom: 1, Service: 2 }, note: "Compassion can build systems of care.", feedback: "You turned a moment into ongoing support." },
+              { text: "Ask what fear keeps people from stopping.", virtues: { Courage: 1, Wisdom: 2 }, note: "Barriers need honest naming.", feedback: "You confronted the excuses beneath avoidance." }
+            ]
+          },
+          {
+            title: "A Hard Teaching",
+            prompt: "Jesus' words challenge a pattern your community has normalized.",
+            options: [
+              { text: "Receive the teaching before explaining it away.", virtues: { Faith: 2, Wisdom: 1 }, note: "Discipleship begins with listening.", feedback: "You let Scripture examine the community." },
+              { text: "Create a gentle conversation where people can be honest.", virtues: { Compassion: 2, Wisdom: 1 }, note: "Transformation needs truth and care.", feedback: "You protected people while inviting growth." },
+              { text: "Take the first concrete step of obedience yourself.", virtues: { Courage: 2, Service: 1 }, note: "Example gives teaching a body.", feedback: "You moved from admiration to practice." }
+            ]
+          },
+          {
+            title: "At the Table",
+            prompt: "Status matters in the room. People are watching who sits where and who serves whom.",
+            options: [
+              { text: "Choose the lower place and serve quietly.", virtues: { Service: 2, Faith: 1 }, note: "The kingdom reorders honor.", feedback: "You let humility speak." },
+              { text: "Invite someone overlooked into a place of honor.", virtues: { Compassion: 2, Courage: 1 }, note: "Welcome can confront a false hierarchy.", feedback: "You used the table to reveal dignity." },
+              { text: "Teach that greatness is measured by love.", virtues: { Wisdom: 2, Service: 1 }, note: "Jesus redefines strength.", feedback: "You named the deeper lesson in the room." }
+            ]
+          },
+          {
+            title: "A Question of Forgiveness",
+            prompt: "Someone asks how far forgiveness must go. The hurt is real, and the answer matters.",
+            options: [
+              { text: "Tell the truth about the hurt and still move toward mercy.", virtues: { Courage: 1, Compassion: 2 }, note: "Forgiveness does not require denial.", feedback: "You refused both bitterness and pretense." },
+              { text: "Seek wise boundaries that make restoration possible.", virtues: { Wisdom: 2, Compassion: 1 }, note: "Mercy and wisdom are allies.", feedback: "You guarded healing from becoming naivete." },
+              { text: "Remember how much grace you have received.", virtues: { Faith: 2, Service: 1 }, note: "Received mercy can become offered mercy.", feedback: "You rooted forgiveness in grace." }
+            ]
+          }
+        ]
+      },
+      {
+        name: "Paul",
+        references: "Acts 13-28; Romans 12; Philippians 1; 2 Timothy 4",
+        lesson: "Mission grows through encouragement, perseverance, and communities shaped by the gospel.",
+        discussion: [
+          "How can encouragement strengthen a church or family under pressure?",
+          "What mission field is already near your ordinary life?"
+        ],
+        prayer: "Sending God, make our lives good news in word, deed, and endurance.",
+        reflection: "Who needs encouragement from you this week?",
+        discoveryPool: [
+          "Paul's journeys connected diverse communities across thousands of miles.",
+          "Many New Testament letters were written to strengthen churches facing real pressures.",
+          "Paul's mission includes public preaching, private encouragement, teamwork, and endurance."
+        ],
+        challenges: [
+          {
+            title: "The Next City",
+            prompt: "The road ahead is uncertain. One route is safer, another reaches people with little support.",
+            options: [
+              { text: "Go where encouragement is most needed.", virtues: { Courage: 1, Compassion: 2 }, note: "Mission is attentive to need.", feedback: "You let people, not comfort, set the route." },
+              { text: "Build a team with different gifts before departing.", virtues: { Wisdom: 2, Service: 1 }, note: "Mission is rarely solo work.", feedback: "You strengthened the journey before beginning it." },
+              { text: "Pray and move when the door opens.", virtues: { Faith: 2, Courage: 1 }, note: "Discernment and action belong together.", feedback: "You trusted guidance on the road." }
+            ]
+          },
+          {
+            title: "A Divided Church",
+            prompt: "A young church is discouraged by conflict. Your words could deepen division or heal it.",
+            options: [
+              { text: "Write with affection before correction.", virtues: { Compassion: 2, Wisdom: 1 }, note: "Love gives correction a home.", feedback: "You chose a pastoral tone." },
+              { text: "Call the community back to shared identity in Christ.", virtues: { Faith: 2, Service: 1 }, note: "The gospel creates a deeper belonging.", feedback: "You centered the church on grace." },
+              { text: "Name the issue plainly and invite mature leadership.", virtues: { Courage: 1, Wisdom: 2 }, note: "Healing often needs clarity.", feedback: "You made unity concrete." }
+            ]
+          },
+          {
+            title: "Chains and Opportunity",
+            prompt: "You are restricted, but people are still within reach. The setback could become witness.",
+            options: [
+              { text: "Encourage others even while your own path is hard.", virtues: { Service: 2, Faith: 1 }, note: "Ministry can continue in limitation.", feedback: "You turned constraint into care." },
+              { text: "Speak with courage to those who would not otherwise listen.", virtues: { Courage: 2, Wisdom: 1 }, note: "Some doors open in unexpected rooms.", feedback: "You saw opportunity in confinement." },
+              { text: "Let trusted coworkers carry work you cannot carry.", virtues: { Wisdom: 1, Compassion: 1, Service: 1 }, note: "Mission can outgrow one person's reach.", feedback: "You strengthened the network." }
+            ]
+          },
+          {
+            title: "A Letter of Joy",
+            prompt: "A community you love is anxious. You cannot be present, but you can send words that form courage.",
+            options: [
+              { text: "Remind them that joy can survive hardship.", virtues: { Faith: 2, Compassion: 1 }, note: "Joy is not denial; it is rooted hope.", feedback: "You offered hope without minimizing pain." },
+              { text: "Thank them specifically for their partnership.", virtues: { Service: 1, Compassion: 2 }, note: "Gratitude strengthens weary people.", feedback: "You made encouragement personal." },
+              { text: "Give practical guidance for unity and prayer.", virtues: { Wisdom: 2, Service: 1 }, note: "Encouragement also gives handles.", feedback: "You paired comfort with practice." }
+            ]
+          }
+        ]
+      }
+    ];
+
+    const randomEvents = [
+      {
+        title: "A Traveler Needs Help",
+        prompt: "A weary traveler appears at the edge of camp with no clear way to repay kindness.",
+        options: [
+          { text: "Offer food, water, and a safe place to rest.", virtues: { Compassion: 2, Service: 1 }, feedback: "Mercy became tangible before it became efficient." },
+          { text: "Listen first so the help matches the need.", virtues: { Wisdom: 2, Compassion: 1 }, feedback: "You resisted assuming you already knew the need." }
+        ],
+        discovery: "Hospitality across Scripture often becomes a place where people encounter God's provision."
+      },
+      {
+        title: "A Difficult Decision",
+        prompt: "The faster choice would benefit your group, but it would leave another group exposed.",
+        options: [
+          { text: "Slow down and protect the people who would be exposed.", virtues: { Compassion: 2, Courage: 1 }, feedback: "You let justice interrupt convenience." },
+          { text: "Find a plan that distributes the burden more fairly.", virtues: { Wisdom: 2, Service: 1 }, feedback: "You treated fairness as a design problem worth solving." }
+        ],
+        discovery: "Biblical justice is often revealed in how communities treat people with less power."
+      },
+      {
+        title: "An Unexpected Opportunity",
+        prompt: "A door opens to encourage someone who has been quietly carrying a heavy load.",
+        options: [
+          { text: "Speak courage into their calling.", virtues: { Service: 1, Courage: 1, Compassion: 1 }, feedback: "You used your words to strengthen another life." },
+          { text: "Offer practical help before giving advice.", virtues: { Service: 2, Wisdom: 1 }, feedback: "You made encouragement concrete." }
+        ],
+        discovery: "Encouragement in Scripture is not shallow optimism; it helps people endure faithfully."
+      },
+      {
+        title: "A Moment of Scarcity",
+        prompt: "The group worries there will not be enough time, energy, or resources.",
+        options: [
+          { text: "Begin with gratitude for what has already been given.", virtues: { Faith: 2, Wisdom: 1 }, feedback: "Gratitude made room for clearer discernment." },
+          { text: "Share what you have and invite others to do the same.", virtues: { Service: 2, Compassion: 1 }, feedback: "You turned scarcity into shared responsibility." }
+        ],
+        discovery: "Many biblical stories of provision begin with an honest inventory of what is already present."
+      }
+    ];
+
+    const dailyChallenges = {
+      Faith: {
+        title: "Today's Focus: Faith",
+        prompt: "A decision cannot be fully controlled, but it can be entrusted to God. What posture will you practice today?",
+        options: [
+          { text: "Take one obedient step without demanding certainty.", virtues: { Faith: 3, Courage: 1 }, feedback: "Faith became movement, not merely agreement." },
+          { text: "Pray honestly about the uncertainty before acting.", virtues: { Faith: 2, Wisdom: 1 }, feedback: "You allowed trust and honesty to sit together." }
+        ],
+        discovery: "Faith in Scripture often walks before it sees the whole road."
+      },
+      Wisdom: {
+        title: "Today's Focus: Wisdom",
+        prompt: "A quick answer would be easier, but the people involved need discernment more than speed.",
+        options: [
+          { text: "Ask better questions before making the decision.", virtues: { Wisdom: 3, Compassion: 1 }, feedback: "You gave discernment time to do its work." },
+          { text: "Seek counsel from someone mature and trustworthy.", virtues: { Wisdom: 2, Service: 1 }, feedback: "You treated wisdom as communal, not private." }
+        ],
+        discovery: "Proverbs often presents wisdom as a path learned through humility, listening, and practice."
+      },
+      Courage: {
+        title: "Today's Focus: Courage",
+        prompt: "Something true needs to be said with love. Silence would be easier.",
+        options: [
+          { text: "Speak truth gently and directly.", virtues: { Courage: 3, Compassion: 1 }, feedback: "You chose clarity without cruelty." },
+          { text: "Prepare your heart first so the motive stays clean.", virtues: { Courage: 2, Wisdom: 1 }, feedback: "You let courage be shaped by humility." }
+        ],
+        discovery: "Biblical courage is not loudness; it is faithfulness under pressure."
+      },
+      Compassion: {
+        title: "Today's Focus: Compassion",
+        prompt: "Someone near you is easy to overlook because their need is inconvenient.",
+        options: [
+          { text: "Slow down and notice what they may be carrying.", virtues: { Compassion: 3, Wisdom: 1 }, feedback: "You made attention part of love." },
+          { text: "Offer specific help that preserves dignity.", virtues: { Compassion: 2, Service: 1 }, feedback: "Your mercy kept the person, not the problem, at the center." }
+        ],
+        discovery: "Jesus repeatedly notices people others have learned to pass by."
+      },
+      Service: {
+        title: "Today's Focus: Service",
+        prompt: "There is an unseen task that would strengthen others, though few would notice.",
+        options: [
+          { text: "Do the hidden work faithfully.", virtues: { Service: 3, Faith: 1 }, feedback: "You chose significance over visibility." },
+          { text: "Invite someone else into the work and encourage them.", virtues: { Service: 2, Compassion: 1 }, feedback: "You turned service into shared formation." }
+        ],
+        discovery: "In Scripture, hidden service often carries visible grace to someone else."
+      }
+    };
+
+    const mapPoints = [
+      { x: 105, y: 350 },
+      { x: 210, y: 245 },
+      { x: 315, y: 330 },
+      { x: 430, y: 215 },
+      { x: 535, y: 300 },
+      { x: 640, y: 185 },
+      { x: 735, y: 285 },
+      { x: 820, y: 165 }
+    ];
+
+    const icons = {
+      compass: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Zm3.6 5.4-2.1 5.1-5.1 2.1 2.1-5.1 5.1-2.1Z"/></svg>',
+      route: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M5 19c4-8 10 0 14-14M5 19l2-5M5 19l5-1M19 5l-2 5M19 5l-5 1"/></svg>',
+      group: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M16 11a4 4 0 1 0-8 0m11 8a7 7 0 0 0-14 0m12-11a3 3 0 0 1 4 2.8M3 18a5.5 5.5 0 0 1 4-5.3"/></svg>',
+      book: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M5 4.5A2.5 2.5 0 0 1 7.5 2H20v17H7.5A2.5 2.5 0 0 0 5 21.5v-17Zm0 0A2.5 2.5 0 0 1 7.5 7H20M9 11h7"/></svg>',
+      spark: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m12 2 1.7 6.3L20 10l-6.3 1.7L12 18l-1.7-6.3L4 10l6.3-1.7L12 2Zm6 13 .8 3.2L22 19l-3.2.8L18 23l-.8-3.2L14 19l3.2-.8L18 15Z"/></svg>',
+      arrow: '<svg class="mini-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6 6 6-6 6"/></svg>',
+      seal: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.4 14 5l3.2-.7.6 3.2 3 1.2-1.4 3 1.4 3-3 1.2-.6 3.2-3.2-.7-2 2.6-2-2.6-3.2.7-.6-3.2-3-1.2 1.4-3-1.4-3 3-1.2.6-3.2L10 5l2-2.6Z"/></svg>',
+      hands: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M7 11V6a2 2 0 1 1 4 0v5m0-4a2 2 0 1 1 4 0v4m0-2a2 2 0 1 1 4 0v3.5A6.5 6.5 0 0 1 12.5 19H12a7 7 0 0 1-5.7-3L4 13.2a1.8 1.8 0 0 1 2.8-2.2L9 13"/></svg>'
+    };
+
+    const app = document.getElementById("app");
+
+    const baseScores = () => virtues.reduce((scores, virtue) => {
+      scores[virtue] = 0;
+      return scores;
+    }, {});
+
+    let state = {
+      screen: "home",
+      mode: "solo",
+      eraIndex: 0,
+      phase: "challenge",
+      scores: baseScores(),
+      stamps: [],
+      discoveries: [],
+      seals: [],
+      selectedChallenges: [],
+      lastOutcome: null,
+      pendingEvent: null,
+      dailyFocus: null,
+      dailyResult: null
+    };
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function pick(items) {
+      return items[Math.floor(Math.random() * items.length)];
+    }
+
+    function todaysFocus() {
+      const start = new Date(new Date().getFullYear(), 0, 0);
+      const today = new Date();
+      const day = Math.floor((today - start) / 86400000);
+      return virtues[day % virtues.length];
+    }
+
+    function startJourney(mode) {
+      state = {
+        screen: "game",
+        mode,
+        eraIndex: 0,
+        phase: "challenge",
+        scores: baseScores(),
+        stamps: [],
+        discoveries: [],
+        seals: [],
+        selectedChallenges: eras.map(era => pick(era.challenges)),
+        lastOutcome: null,
+        pendingEvent: null,
+        dailyFocus: null,
+        dailyResult: null
+      };
+      render();
+    }
+
+    function startDaily() {
+      state = {
+        ...state,
+        screen: "daily",
+        mode: "daily",
+        scores: baseScores(),
+        dailyFocus: todaysFocus(),
+        dailyResult: null
+      };
+      render();
+    }
+
+    function showHowToPlay() {
+      state = { ...state, screen: "how" };
+      render();
+    }
+
+    function goHome() {
+      state = { ...state, screen: "home" };
+      render();
+    }
+
+    function addDiscovery(text) {
+      if (!text || state.discoveries.includes(text)) return text;
+      state.discoveries.push(text);
+      return text;
+    }
+
+    function applyVirtues(impacts) {
+      Object.entries(impacts || {}).forEach(([virtue, value]) => {
+        state.scores[virtue] = Math.max(0, (state.scores[virtue] || 0) + value);
+      });
+      unlockSeals();
+    }
+
+    function unlockSeals() {
+      virtues.forEach(virtue => {
+        if (state.scores[virtue] >= 6 && !state.seals.includes(virtue)) {
+          state.seals.push(virtue);
+        }
+      });
+    }
+
+    function choiceVirtueLine(choice) {
+      return Object.entries(choice.virtues)
+        .map(([virtue, value]) => `${virtue} +${value}`)
+        .join(" | ");
+    }
+
+    function chooseOption(index) {
+      const era = eras[state.eraIndex];
+      const challenge = state.selectedChallenges[state.eraIndex];
+      const choice = challenge.options[index];
+      if (!choice) return;
+      applyVirtues(choice.virtues);
+      if (!state.stamps.includes(era.name)) state.stamps.push(era.name);
+      const discovery = addDiscovery(pick(era.discoveryPool));
+      state.pendingEvent = Math.random() < 0.34 && state.eraIndex < eras.length - 1 ? pick(randomEvents) : null;
+      state.lastOutcome = {
+        title: challenge.title,
+        choice: choice.text,
+        feedback: choice.feedback,
+        note: choice.note,
+        discovery,
+        stamp: era.name,
+        impacts: choice.virtues
+      };
+      state.phase = "result";
+      render();
+    }
+
+    function continueAfterResult() {
+      if (state.pendingEvent) {
+        state.phase = "event";
+      } else if (shouldReflect()) {
+        state.phase = "reflection";
+      } else {
+        advanceEra();
+        return;
+      }
+      render();
+    }
+
+    function chooseEventOption(index) {
+      const event = state.pendingEvent;
+      if (!event) return;
+      const choice = event.options[index];
+      if (!choice) return;
+      applyVirtues(choice.virtues);
+      const discovery = addDiscovery(event.discovery);
+      state.lastOutcome = {
+        title: event.title,
+        choice: choice.text,
+        feedback: choice.feedback,
+        note: "A road event shaped the journey.",
+        discovery,
+        stamp: null,
+        impacts: choice.virtues
+      };
+      state.pendingEvent = null;
+      state.phase = shouldReflect() ? "reflection" : "result";
+      render();
+    }
+
+    function shouldReflect() {
+      return [2, 4, 6, 7].includes(state.eraIndex);
+    }
+
+    function skipReflection() {
+      advanceEra();
+    }
+
+    function advanceEra() {
+      if (state.eraIndex >= eras.length - 1) {
+        finishJourney();
+        return;
+      }
+      state.eraIndex += 1;
+      state.phase = "challenge";
+      state.lastOutcome = null;
+      state.pendingEvent = null;
+      render();
+    }
+
+    function finishJourney() {
+      unlockSeals();
+      state.screen = "ending";
+      state.phase = "complete";
+      state.pendingEvent = null;
+      render();
+    }
+
+    function chooseDailyOption(index) {
+      const challenge = dailyChallenges[state.dailyFocus];
+      const choice = challenge.options[index];
+      if (!choice) return;
+      applyVirtues(choice.virtues);
+      state.dailyResult = {
+        focus: state.dailyFocus,
+        choice: choice.text,
+        feedback: choice.feedback,
+        discovery: challenge.discovery
+      };
+      render();
+    }
+
+    function strongestVirtues() {
+      const max = Math.max(...virtues.map(virtue => state.scores[virtue]));
+      return virtues.filter(virtue => state.scores[virtue] === max);
+    }
+
+    function render() {
+      const screens = {
+        home: renderHome,
+        how: renderHowTo,
+        game: renderGame,
+        daily: renderDaily,
+        ending: renderEnding
+      };
+      app.innerHTML = screens[state.screen]();
+      attachEvents();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function attachEvents() {
+      app.querySelectorAll("[data-action]").forEach(button => {
+        button.addEventListener("click", () => {
+          const action = button.getAttribute("data-action");
+          const value = button.getAttribute("data-value");
+          if (action === "solo") startJourney("solo");
+          if (action === "group") startJourney("group");
+          if (action === "daily") startDaily();
+          if (action === "how") showHowToPlay();
+          if (action === "home") goHome();
+          if (action === "choice") chooseOption(Number(value));
+          if (action === "continue") continueAfterResult();
+          if (action === "eventChoice") chooseEventOption(Number(value));
+          if (action === "skipReflection") skipReflection();
+          if (action === "continueReflection") advanceEra();
+          if (action === "dailyChoice") chooseDailyOption(Number(value));
+          if (action === "restart") startJourney(state.mode === "group" ? "group" : "solo");
+          if (action === "print") window.print();
+        });
+      });
+    }
+
+    function renderHome() {
+      return `
+        <main class="screen home-screen">
+          <section class="hero" aria-labelledby="home-title">
+            ${heroMapSvg()}
+            <div class="hero-content">
+              <div class="kicker">Scripture Journey</div>
+              <h1 id="home-title">Bible Journey Challenge</h1>
+              <p class="subtitle">Travel through the story of Scripture. Face challenges. Make decisions. Unlock virtues. Discover your journey.</p>
+              <div class="hero-actions" aria-label="Game modes">
+                <button class="btn btn-primary" data-action="solo">${icons.compass} Play Solo</button>
+                <button class="btn" data-action="group">${icons.group} Play With A Group</button>
+                <button class="btn btn-copper" data-action="daily">${icons.spark} Daily Challenge</button>
+                <button class="btn btn-quiet" data-action="how">${icons.book} How To Play</button>
+              </div>
+            </div>
+          </section>
+        </main>
+      `;
+    }
+
+    function renderHowTo() {
+      return `
+        <main class="screen">
+          ${renderHeader("How To Play", "There are no perfect scores. Every journey teaches something.")}
+          <section class="how-grid">
+            <div class="panel panel-pad">
+              <ol class="rules-list">
+                ${[
+                  "Travel through Bible history.",
+                  "Complete challenges.",
+                  "Earn virtue points.",
+                  "Unlock discoveries.",
+                  "Build your Journey Passport.",
+                  "Reveal your Faith Profile."
+                ].map((rule, index) => `
+                  <li>
+                    <span class="rule-number">${index + 1}</span>
+                    <span>${escapeHtml(rule)}</span>
+                  </li>
+                `).join("")}
+              </ol>
+              <div class="action-row">
+                <button class="btn btn-primary" data-action="solo">${icons.compass} Play Solo</button>
+                <button class="btn" data-action="group">${icons.group} Play With A Group</button>
+              </div>
+            </div>
+            <aside class="panel panel-pad" aria-labelledby="virtues-title">
+              <div class="section-title">
+                <h3 id="virtues-title">Virtues</h3>
+                <span class="count-pill">5</span>
+              </div>
+              <div class="virtue-cloud">
+                ${virtues.map(virtue => `<span class="virtue-token">${virtue}</span>`).join("")}
+              </div>
+              <div class="result-band">
+                <p>Choices reveal different strengths. No virtue is a flaw, and no path is treated as failure.</p>
+              </div>
+              <button class="btn btn-quiet" data-action="home">${icons.arrow} Back To Opening</button>
+            </aside>
+          </section>
+        </main>
+      `;
+    }
+
+    function renderGame() {
+      const era = eras[state.eraIndex];
+      return `
+        <main class="screen">
+          ${renderHeader("Bible Journey Challenge", state.mode === "group" ? "Group Journey" : "Solo Journey")}
+          <section class="game-layout">
+            <div class="main-column">
+              ${renderMapPanel()}
+              ${renderChallengePanel()}
+            </div>
+            <aside class="side-column" aria-label="Journey progress">
+              ${renderVirtuePanel()}
+              ${renderPassportPanel()}
+              ${renderSealsPanel()}
+              ${renderDiscoveriesPanel()}
+              ${renderLeaderGuide(era.name)}
+            </aside>
+          </section>
+        </main>
+      `;
+    }
+
+    function renderHeader(title, subtitle) {
+      return `
+        <header class="view-header">
+          <div class="brand-lockup">
+            <div class="brand-mark">${icons.compass}</div>
+            <div class="brand-title">
+              <h2>${escapeHtml(title)}</h2>
+              <p>${escapeHtml(subtitle)}</p>
+            </div>
+          </div>
+          <div class="hero-actions">
+            <button class="btn btn-quiet" data-action="home">${icons.route} Opening</button>
+            <button class="btn btn-quiet" data-action="how">${icons.book} How To Play</button>
+          </div>
+        </header>
+      `;
+    }
+
+    function renderMapPanel() {
+      const era = eras[state.eraIndex];
+      const progress = Math.round((state.stamps.length / eras.length) * 100);
+      return `
+        <section class="panel map-panel" aria-labelledby="map-title">
+          <div class="map-toolbar">
+            <div class="era-chip">
+              <span class="era-dot"></span>
+              <span id="map-title">${escapeHtml(era.name)}</span>
+            </div>
+            <div class="progress-meter" aria-label="Journey progress">
+              <span style="width: ${progress}%"></span>
+            </div>
+          </div>
+          ${journeyMapSvg()}
+        </section>
+      `;
+    }
+
+    function renderChallengePanel() {
+      if (state.phase === "result") return renderResultPanel();
+      if (state.phase === "event") return renderEventPanel();
+      if (state.phase === "reflection") return renderReflectionPanel();
+
+      const era = eras[state.eraIndex];
+      const challenge = state.selectedChallenges[state.eraIndex];
+      const chooserText = state.mode === "group"
+        ? "Discuss together. What should your group choose?"
+        : "What would you choose?";
+
+      return `
+        <section class="panel panel-pad challenge-panel" aria-labelledby="challenge-title">
+          <div class="eyebrow">${escapeHtml(era.name)} Journey Stop</div>
+          <h3 id="challenge-title">${escapeHtml(challenge.title)}</h3>
+          <p class="prompt">${escapeHtml(challenge.prompt)}</p>
+          ${state.mode === "group" ? `
+            <div class="group-note">
+              ${icons.group}
+              <div>
+                <strong>Discuss together before choosing.</strong><br>
+                ${escapeHtml(era.discussion[0])}
+              </div>
+            </div>
+          ` : ""}
+          <p class="prompt"><strong>${escapeHtml(chooserText)}</strong></p>
+          <div class="option-grid">
+            ${challenge.options.map((choice, index) => renderChoice(choice, index, "choice")).join("")}
+          </div>
+        </section>
+      `;
+    }
+
+    function renderChoice(choice, index, action) {
+      return `
+        <button class="choice" data-action="${action}" data-value="${index}">
+          <span class="choice-icon">${icons.hands}</span>
+          <span>
+            <strong>${escapeHtml(choice.text)}</strong>
+            <small>${escapeHtml(choiceVirtueLine(choice))}</small>
+          </span>
+          <span class="arrow">${icons.arrow}</span>
+        </button>
+      `;
+    }
+
+    function renderResultPanel() {
+      const result = state.lastOutcome;
+      const continueLabel = state.pendingEvent
+          ? "Continue To Road Event"
+          : shouldReflect()
+            ? "Continue To Reflection"
+            : state.eraIndex >= eras.length - 1
+              ? "Complete Journey"
+              : "Continue Journey";
+      return `
+        <section class="panel panel-pad challenge-panel" aria-labelledby="result-title">
+          <div class="eyebrow">Journey Discovery</div>
+          <h3 id="result-title">${escapeHtml(result.title)}</h3>
+          <div class="result-band">
+            <p><strong>Your choice:</strong> ${escapeHtml(result.choice)}</p>
+            <p>${escapeHtml(result.feedback)}</p>
+            <p>${escapeHtml(result.note)}</p>
+            ${result.stamp ? `<p><strong>Passport stamp added:</strong> ${escapeHtml(result.stamp)}</p>` : ""}
+            <div class="discovery">
+              <strong>Did you know?</strong>
+              <p>${escapeHtml(result.discovery)}</p>
+            </div>
+          </div>
+          <div class="action-row">
+            <button class="btn btn-primary" data-action="continue">${icons.arrow} ${continueLabel}</button>
+          </div>
+        </section>
+      `;
+    }
+
+    function renderEventPanel() {
+      const event = state.pendingEvent;
+      return `
+        <section class="panel panel-pad challenge-panel" aria-labelledby="event-title">
+          <div class="eyebrow">Road Event</div>
+          <h3 id="event-title">${escapeHtml(event.title)}</h3>
+          <p class="prompt">${escapeHtml(event.prompt)}</p>
+          ${state.mode === "group" ? `
+            <div class="group-note">
+              ${icons.group}
+              <div>
+                <strong>Discuss together before choosing.</strong><br>
+                What virtue does this moment ask your group to practice?
+              </div>
+            </div>
+          ` : ""}
+          <div class="option-grid">
+            ${event.options.map((choice, index) => renderChoice(choice, index, "eventChoice")).join("")}
+          </div>
+        </section>
+      `;
+    }
+
+    function renderReflectionPanel() {
+      const era = eras[state.eraIndex];
+      return `
+        <section class="panel panel-pad challenge-panel" aria-labelledby="reflection-title">
+          <div class="eyebrow">Optional Reflection</div>
+          <h3 id="reflection-title">${escapeHtml(era.name)} Reflection</h3>
+          <div class="result-band reflection">
+            <p>${escapeHtml(era.reflection)}</p>
+          </div>
+          <div class="action-row">
+            <button class="btn btn-primary" data-action="continueReflection">${icons.arrow} Continue</button>
+            <button class="btn" data-action="skipReflection">Skip</button>
+          </div>
+        </section>
+      `;
+    }
+
+    function renderVirtuePanel() {
+      const max = Math.max(12, ...Object.values(state.scores), 1);
+      return `
+        <section class="panel panel-pad" aria-labelledby="virtue-score-title">
+          <div class="section-title">
+            <h3 id="virtue-score-title">Virtue Scores</h3>
+            <span class="count-pill">${state.stamps.length}/${eras.length}</span>
+          </div>
+          <div class="stats-grid">
+            ${virtues.map(virtue => {
+              const score = state.scores[virtue] || 0;
+              const width = Math.min(100, Math.round((score / max) * 100));
+              return `
+                <div class="stat-row">
+                  <label>${virtue}</label>
+                  <span class="stat-value">${score}</span>
+                  <div class="bar" aria-hidden="true"><span style="width: ${width}%"></span></div>
+                </div>
+              `;
+            }).join("")}
+          </div>
+        </section>
+      `;
+    }
+
+    function renderPassportPanel() {
+      return `
+        <section class="panel panel-pad" aria-labelledby="passport-title">
+          <div class="section-title">
+            <h3 id="passport-title">Journey Passport</h3>
+            <span class="count-pill">${state.stamps.length}</span>
+          </div>
+          <div class="stamp-grid">
+            ${eras.map(era => {
+              const done = state.stamps.includes(era.name);
+              return `
+                <div class="stamp ${done ? "done" : ""}">
+                  <span>${escapeHtml(era.name)}</span>
+                  <span class="stamp-mark">${done ? "Stamped" : "Open"}</span>
+                </div>
+              `;
+            }).join("")}
+          </div>
+        </section>
+      `;
+    }
+
+    function renderSealsPanel() {
+      return `
+        <section class="panel panel-pad" aria-labelledby="seals-title">
+          <div class="section-title">
+            <h3 id="seals-title">Wax Seals</h3>
+            <span class="count-pill">${state.seals.length}</span>
+          </div>
+          <div class="seal-grid">
+            ${state.seals.length ? state.seals.map(virtue => waxSealMarkup(virtue)).join("") : `<p class="seal-empty">Seals are earned as virtue strengths emerge during the journey.</p>`}
+          </div>
+        </section>
+      `;
+    }
+
+    function renderDiscoveriesPanel() {
+      const visible = state.discoveries.slice(-4);
+      return `
+        <section class="panel panel-pad" aria-labelledby="discoveries-title">
+          <div class="section-title">
+            <h3 id="discoveries-title">Discoveries</h3>
+            <span class="count-pill">${state.discoveries.length}</span>
+          </div>
+          <div class="discovery-list">
+            ${visible.length ? visible.map(item => `<div class="discovery-item">${escapeHtml(item)}</div>`).join("") : `<p class="empty-state">Discoveries unlock as the journey unfolds.</p>`}
+          </div>
+        </section>
+      `;
+    }
+
+    function renderLeaderGuide(currentName) {
+      return `
+        <section class="panel panel-pad leader-guide" aria-labelledby="leader-title">
+          <div class="section-title">
+            <h3 id="leader-title">Leader Guide</h3>
+            <span class="count-pill">${eras.length}</span>
+          </div>
+          ${eras.map(era => `
+            <details ${era.name === currentName ? "open" : ""}>
+              <summary>${escapeHtml(era.name)}</summary>
+              <div class="guide-content">
+                <div><strong>References:</strong> ${escapeHtml(era.references)}</div>
+                <div><strong>Main lesson:</strong> ${escapeHtml(era.lesson)}</div>
+                <div><strong>Discussion:</strong> ${escapeHtml(era.discussion.join(" "))}</div>
+                <div><strong>Prayer:</strong> ${escapeHtml(era.prayer)}</div>
+              </div>
+            </details>
+          `).join("")}
+        </section>
+      `;
+    }
+
+    function renderDaily() {
+      const focus = state.dailyFocus || todaysFocus();
+      const challenge = dailyChallenges[focus];
+      const result = state.dailyResult;
+      return `
+        <main class="screen">
+          ${renderHeader("Daily Challenge", "A focused practice for today")}
+          <section class="how-grid">
+            <div class="panel panel-pad daily-card" aria-labelledby="daily-title">
+              <div class="daily-focus">
+                <div class="brand-mark">${icons.spark}</div>
+                <div>
+                  <div class="eyebrow">Today's Focus</div>
+                  <h3 id="daily-title">${escapeHtml(focus)}</h3>
+                </div>
+              </div>
+              ${result ? `
+                <div class="result-band">
+                  <p><strong>Your choice:</strong> ${escapeHtml(result.choice)}</p>
+                  <p>${escapeHtml(result.feedback)}</p>
+                  <div class="discovery">
+                    <strong>Did you know?</strong>
+                    <p>${escapeHtml(result.discovery)}</p>
+                  </div>
+                </div>
+                <div class="action-row">
+                  <button class="btn btn-primary" data-action="solo">${icons.compass} Begin Full Journey</button>
+                  <button class="btn" data-action="home">Opening</button>
+                </div>
+              ` : `
+                <p class="prompt">${escapeHtml(challenge.prompt)}</p>
+                <div class="option-grid">
+                  ${challenge.options.map((choice, index) => renderChoice(choice, index, "dailyChoice")).join("")}
+                </div>
+              `}
+            </div>
+            <aside class="panel panel-pad">
+              <div class="section-title">
+                <h3>Virtue Practice</h3>
+                <span class="count-pill">Today</span>
+              </div>
+              <p class="prompt">${escapeHtml(virtueDescriptions[focus])}</p>
+              <div class="verse">${escapeHtml(virtueVerses[focus])}</div>
+            </aside>
+          </section>
+        </main>
+      `;
+    }
+
+    function renderEnding() {
+      const strongest = strongestVirtues();
+      const primary = strongest[0];
+      const completed = state.stamps.length;
+      return `
+        <main class="screen">
+          ${renderHeader("Journey Complete", "Your Faith Profile is ready")}
+          <section class="final-grid">
+            <div class="main-column ending-card">
+              <section class="panel panel-pad challenge-panel">
+                <div class="eyebrow">Faith Profile</div>
+                <h3>Your Strongest Virtue: ${escapeHtml(strongest.join(" and "))}</h3>
+                <p class="prompt">${escapeHtml(virtueDescriptions[primary])}</p>
+                <div class="score-table">
+                  ${virtues.map(virtue => `
+                    <div class="score-line">
+                      <span>${virtue}</span>
+                      <strong>${state.scores[virtue]}</strong>
+                    </div>
+                  `).join("")}
+                </div>
+                <div class="result-band">
+                  <p><strong>Passport completion:</strong> ${completed}/${eras.length} eras stamped.</p>
+                  <p><strong>Seals earned:</strong> ${state.seals.length ? state.seals.map(v => `Seal of ${v}`).join(", ") : "Your strongest seal is still forming."}</p>
+                  <p><strong>Discoveries found:</strong> ${state.discoveries.length}</p>
+                </div>
+                <div class="action-row">
+                  <button class="btn btn-primary" data-action="restart">${icons.route} Replay Journey</button>
+                  <button class="btn" data-action="print">${icons.spark} Print Summary</button>
+                  <button class="btn" data-action="home">Opening</button>
+                </div>
+              </section>
+              ${renderVirtuePanel()}
+              ${renderSealsPanel()}
+            </div>
+            <aside class="summary-card" aria-label="Shareable results card">
+              <div class="summary-art">${summaryMapSvg()}</div>
+              <div class="summary-body">
+                <div class="eyebrow" style="color:#7a4b2f">Journey Completed</div>
+                <h3>Bible Journey Challenge</h3>
+                <p><strong>Strongest virtue:</strong> ${escapeHtml(strongest.join(" and "))}</p>
+                <p><strong>Passport:</strong> ${completed}/${eras.length} eras complete</p>
+                <p><strong>Wax seals:</strong> ${state.seals.length ? state.seals.map(v => `Seal of ${v}`).join(", ") : "Still forming"}</p>
+                <div class="verse">${escapeHtml(virtueVerses[primary])}</div>
+              </div>
+            </aside>
+          </section>
+        </main>
+      `;
+    }
+
+    function waxSealMarkup(virtue) {
+      return `
+        <div class="wax-seal earned">
+          <svg viewBox="0 0 100 100" aria-hidden="true">
+            <defs>
+              <radialGradient id="seal-${virtue}" cx="40%" cy="35%" r="65%">
+                <stop offset="0" stop-color="#cf7850"/>
+                <stop offset="0.62" stop-color="#9a5634"/>
+                <stop offset="1" stop-color="#6c3324"/>
+              </radialGradient>
+            </defs>
+            <path d="M50 6 59 18 74 14 77 29 91 36 84 50 91 64 77 71 74 86 59 82 50 94 41 82 26 86 23 71 9 64 16 50 9 36 23 29 26 14 41 18 50 6Z" fill="url(#seal-${virtue})"/>
+            <circle cx="50" cy="50" r="26" fill="none" stroke="#f1d58a" stroke-width="3" opacity=".8"/>
+            <text x="50" y="57" text-anchor="middle" font-family="Georgia,serif" font-size="24" font-weight="700" fill="#fff8e8">${virtue[0]}</text>
+          </svg>
+          <span><strong>Seal of ${virtue}</strong><br><span>Earned through choices</span></span>
+        </div>
+      `;
+    }
+
+    function heroMapSvg() {
+      return `
+        <svg class="hero-map" viewBox="0 0 1200 760" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <defs>
+            <linearGradient id="heroPaper" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0" stop-color="#f2e3bf"/>
+              <stop offset="0.56" stop-color="#ddc28a"/>
+              <stop offset="1" stop-color="#b99363"/>
+            </linearGradient>
+            <filter id="heroSoft"><feGaussianBlur stdDeviation="0.8"/></filter>
+          </defs>
+          <rect width="1200" height="760" fill="url(#heroPaper)"/>
+          <path d="M61 481C167 354 266 301 386 323c65 12 108-51 181-41 97 12 145 104 247 81 124-27 199 21 286 130v267H61Z" fill="#9aa36b" opacity=".32"/>
+          <path d="M-20 572C90 518 161 530 249 573c80 39 149 21 238-28 96-54 187-38 291 32 94 63 211 81 451-48v231H-20Z" fill="#52663b" opacity=".28"/>
+          <path d="M116 388C268 202 395 179 515 281c105 90 217 72 338-19 90-68 183-72 286-21" fill="none" stroke="#3f7384" stroke-width="12" stroke-linecap="round" opacity=".35"/>
+          <path d="M90 548C245 458 357 500 457 408S661 254 816 310s215-68 316-166" fill="none" stroke="#8b4b30" stroke-width="8" stroke-linecap="round" stroke-dasharray="1 22" opacity=".58"/>
+          <g fill="none" stroke="#7a633f" stroke-width="2" opacity=".42">
+            <path d="M221 248 254 193 287 248Z"/>
+            <path d="M262 252 309 176 356 252Z"/>
+            <path d="M784 196 824 126 864 196Z"/>
+            <path d="M835 204 884 121 934 204Z"/>
+            <circle cx="978" cy="488" r="74"/>
+            <path d="M978 414v148M904 488h148M927 437l102 102M1029 437 927 539"/>
+          </g>
+          <g class="cloud" fill="#fff8e8" filter="url(#heroSoft)">
+            <ellipse cx="238" cy="129" rx="78" ry="18"/>
+            <ellipse cx="305" cy="121" rx="55" ry="16"/>
+            <ellipse cx="846" cy="94" rx="90" ry="20"/>
+            <ellipse cx="925" cy="87" rx="50" ry="16"/>
+          </g>
+          <g fill="#253044" opacity=".38" font-family="Georgia,serif" font-size="22">
+            <text x="145" y="598">Ancient Roads</text>
+            <text x="790" y="244">Riverlands</text>
+            <text x="944" y="603">Promise Sea</text>
+          </g>
+        </svg>
+      `;
+    }
+
+    function routePath() {
+      return "M105 350 C150 292 168 268 210 245 C250 225 280 306 315 330 C365 366 388 246 430 215 C476 184 498 278 535 300 C588 339 598 205 640 185 C684 166 694 250 735 285 C778 322 792 195 820 165";
+    }
+
+    function journeyMapSvg() {
+      const currentPoint = mapPoints[state.eraIndex];
+      const routeProgress = Math.max(0, Math.min(100, (state.eraIndex / (eras.length - 1)) * 100));
+      const offset = 100 - routeProgress;
+      return `
+        <svg class="journey-map" viewBox="0 0 900 540" role="img" aria-label="Map showing journey through Scripture eras">
+          <defs>
+            <linearGradient id="mapPaper" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0" stop-color="#f5e8c9"/>
+              <stop offset="0.55" stop-color="#e0c895"/>
+              <stop offset="1" stop-color="#b99363"/>
+            </linearGradient>
+            <linearGradient id="routeGradient" x1="0" x2="1">
+              <stop offset="0" stop-color="#52663b"/>
+              <stop offset="0.58" stop-color="#c89b3c"/>
+              <stop offset="1" stop-color="#9a5634"/>
+            </linearGradient>
+            <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+              <feGaussianBlur stdDeviation="4" result="blur"/>
+              <feMerge>
+                <feMergeNode in="blur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+            <pattern id="grain" width="80" height="80" patternUnits="userSpaceOnUse">
+              <circle cx="8" cy="14" r="1" fill="#7a633f" opacity=".14"/>
+              <circle cx="61" cy="23" r="1.2" fill="#7a633f" opacity=".10"/>
+              <circle cx="34" cy="61" r="0.9" fill="#7a633f" opacity=".12"/>
+            </pattern>
+          </defs>
+          <rect width="900" height="540" fill="url(#mapPaper)"/>
+          <rect width="900" height="540" fill="url(#grain)"/>
+          <path d="M0 404C85 330 171 313 270 343c68 20 114-51 187-37 92 18 132 105 234 78 83-22 145-2 209 52v104H0Z" fill="#52663b" opacity=".18"/>
+          <path d="M-12 510C93 451 159 458 247 498c77 36 134 8 213-36 98-54 171-34 260 26 58 39 116 49 192 31v21H-12Z" fill="#52663b" opacity=".24"/>
+          <path class="river" d="M8 251C78 228 110 173 171 168c74-7 107 63 174 56 83-9 103-113 198-102 82 9 112 96 189 77 53-13 89-67 158-71"/>
+          <g fill="none" stroke="#7a633f" stroke-width="2" opacity=".46">
+            <path d="M138 208 168 157 198 208Z"/>
+            <path d="M185 210 224 141 264 210Z"/>
+            <path d="M596 150 633 88 670 150Z"/>
+            <path d="M642 156 690 76 738 156Z"/>
+            <circle cx="760" cy="420" r="46"/>
+            <path d="M760 374v92M714 420h92M727 387l66 66M793 387l-66 66"/>
+          </g>
+          <g class="cloud" fill="#fff8e8">
+            <ellipse cx="176" cy="84" rx="45" ry="12"/>
+            <ellipse cx="220" cy="77" rx="33" ry="10"/>
+            <ellipse cx="701" cy="53" rx="56" ry="14"/>
+            <ellipse cx="748" cy="48" rx="35" ry="10"/>
+          </g>
+          <path class="route-base" d="${routePath()}"/>
+          <path class="route-active" pathLength="100" d="${routePath()}" style="stroke-dashoffset:${offset}"/>
+          ${eras.map((era, index) => {
+            const point = mapPoints[index];
+            const completed = state.stamps.includes(era.name);
+            const status = index === state.eraIndex ? "marker-current" : completed ? "marker-completed" : "marker-pending";
+            const labelY = point.y + (index % 2 === 0 ? 42 : -32);
+            return `
+              <g class="${status}" transform="translate(${point.x} ${point.y})">
+                <circle class="marker-ring" r="20" stroke-width="3"/>
+                <circle class="marker-pin" r="8"/>
+              </g>
+              <text class="map-label" x="${point.x}" y="${labelY}" text-anchor="middle">${escapeHtml(era.name)}</text>
+            `;
+          }).join("")}
+          <g class="player-marker" transform="translate(${currentPoint.x} ${currentPoint.y - 34})">
+            <path d="M0-23C13-23 23-13 23 0c0 17-23 34-23 34S-23 17-23 0c0-13 10-23 23-23Z" fill="#9a5634" stroke="#fff8e8" stroke-width="3"/>
+            <circle r="8" fill="#f1d58a"/>
+          </g>
+          <text class="map-note" x="26" y="510">Journey through Scripture</text>
+        </svg>
+      `;
+    }
+
+    function summaryMapSvg() {
+      return `
+        <svg viewBox="0 0 520 210" preserveAspectRatio="none" aria-hidden="true">
+          <rect width="520" height="210" fill="#e5cf9e"/>
+          <path d="M0 151C58 122 107 113 164 130c47 14 78-33 125-24 60 11 85 73 152 54 31-9 56-9 79 2v48H0Z" fill="#52663b" opacity=".28"/>
+          <path d="M26 146C94 94 150 116 204 88s113-74 178-38 83-2 120-38" fill="none" stroke="#9a5634" stroke-width="5" stroke-linecap="round" stroke-dasharray="1 15" opacity=".7"/>
+          <path d="M24 90C72 77 96 40 137 42c49 3 63 44 111 37 58-8 79-67 139-47 33 11 51 41 104 32" fill="none" stroke="#3f7384" stroke-width="6" stroke-linecap="round" opacity=".28"/>
+          <g fill="#9a5634" stroke="#fff8e8" stroke-width="2">
+            ${mapPoints.map((point, index) => `<circle cx="${26 + index * 66}" cy="${146 - (index % 2) * 34}" r="8"/>`).join("")}
+          </g>
+        </svg>
+      `;
+    }
+
+    render();
+  </script>
 </body>
 </html>
